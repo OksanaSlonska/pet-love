@@ -1,0 +1,30 @@
+.logo {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.04em;
+}
+
+.dark {
+  color: var(--black);
+}
+
+.dark .iconHeart svg {
+  fill: var(--accent-orange);
+}
+
+.light {
+  color: var(--white);
+}
+
+.light .iconHeart {
+  fill: var(--white);
+}
+
+.iconHeart {
+  display: flex;
+  align-items: center;
+  margin: 0 1px;
+  transform: translateY(1px);
+}
