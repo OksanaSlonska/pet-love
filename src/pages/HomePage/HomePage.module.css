@@ -54,11 +54,41 @@
   }
 }
 
+.imageWrapper {
+  width: 100%;
+  height: 409px;
+  border-radius: 30px;
+  overflow: hidden;
+  display: block;
+
+  flex-shrink: 0;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 30px;
+}
+
 @media screen and (min-width: 768px) {
   .hero {
     border-radius: 60px;
   }
   .contentWrapper {
     padding-top: 80px;
+  }
+
+  .imageWrapper {
+    height: 496px; /* Высота для планшета */
+    border-radius: 60px; /* Скругления на планшете обычно больше */
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .imageWrapper {
+    height: 384px; /* Высота для десктопа */
+    margin-top: 20px;
   }
 }

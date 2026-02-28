@@ -1,8 +1,17 @@
 import { useLocation } from "react-router-dom";
+import { useState } from "react";
 import Logo from "./Logo/Logo";
 import styles from "./Header.module.css";
+import MobileMenu from "../MobileMenu/MobileMenu";
 
 export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+    document.body.style.overflow = !isOpen ? "hidden" : "unset";
+  };
+
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
@@ -23,7 +32,7 @@ export default function Header() {
             </button>
 
             {/* Бургер-меню */}
-            <button className={styles.burgerBtn}>
+            <button className={styles.burgerBtn} onClick={toggleMenu}>
               <svg width="32" height="32">
                 <use href="/sprite.svg#icon-menu"></use>
               </svg>
@@ -31,6 +40,8 @@ export default function Header() {
           </div>
         </div>
       </div>
+
+      <MobileMenu isOpen={isOpen} onClose={toggleMenu} />
     </header>
   );
 }
