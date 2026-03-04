@@ -31,3 +31,23 @@
 .link:global(.active) {
   border-color: var(--accent-orange);
 }
+
+@media screen and (min-width: 1280px) {
+  .link {
+    padding: 12px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: var(--white);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav {
+    gap: 10px;
+  }
+
+  .link:hover {
+    background-color: #f9b020;
+  }
+}

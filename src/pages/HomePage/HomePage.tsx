@@ -7,13 +7,15 @@ export default function Home() {
       <section className={styles.hero}>
         <Header />
         <div className="container">
-          <h1 className={styles.title}>
-            Take good <span>care </span>of your small pets
-          </h1>
-          <p className={styles.subtitle}>
-            Choosing a pet for your home is a choice that is meant to enrich
-            your life with immeasurable joy and tenderness.
-          </p>
+          <div className={styles.textWrapper}>
+            <h1 className={styles.title}>
+              Take good <span>care </span>of your small pets
+            </h1>
+            <p className={styles.subtitle}>
+              Choosing a pet for your home is a choice that is meant to enrich
+              your life with immeasurable joy and tenderness.
+            </p>
+          </div>
         </div>
       </section>
       <div className={styles.imageWrapper}>

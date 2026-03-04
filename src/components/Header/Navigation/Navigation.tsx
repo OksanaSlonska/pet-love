@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import s from "./Navigation.module.css";
 
 interface Props {
-  onClose?: () => void; // Чтобы закрывать меню при клике
+  onClose?: () => void;
 }
 
 export default function Navigation({ onClose }: Props) {

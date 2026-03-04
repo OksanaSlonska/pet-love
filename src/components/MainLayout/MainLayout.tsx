@@ -8,6 +8,7 @@ import styles from "./MainLayout.module.css";
 const MainLayout: React.FC = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
+
   return (
     <div className={styles.applayout}>
       {!isHomePage && <Header />}

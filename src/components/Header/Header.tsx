@@ -3,6 +3,8 @@ import { useState } from "react";
 import Logo from "./Logo/Logo";
 import styles from "./Header.module.css";
 import MobileMenu from "../MobileMenu/MobileMenu";
+import Navigation from "./Navigation/Navigation";
+import AuthNav from "./AuthNav/AuthNav";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,13 +25,21 @@ export default function Header() {
         <div className={styles.headerWrapper}>
           <Logo variant={isHomePage ? "light" : "dark"} />
 
+          <div className={styles.desktopNav}>
+            <Navigation />
+          </div>
+
           <div className={styles.controls}>
+            <div className={styles.desktopAuth}>
+              <AuthNav />
+            </div>
+
             {/* Кнопка профиля (UserNav) */}
-            <button className={styles.userBtn}>
+            {/* <button className={styles.userBtn}>
               <svg width="20" height="20">
                 <use href="/sprite.svg#icon-user"></use>
               </svg>
-            </button>
+            </button> */}
 
             {/* Бургер-меню */}
             <button className={styles.burgerBtn} onClick={toggleMenu}>

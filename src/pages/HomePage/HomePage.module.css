@@ -8,9 +8,7 @@
   background-color: var(--accent-orange);
   border-radius: 30px;
   min-height: 390px;
-
   width: 100%;
-  max-width: 335px;
   margin: 0 auto;
 }
 
@@ -60,7 +58,6 @@
   border-radius: 30px;
   overflow: hidden;
   display: block;
-
   flex-shrink: 0;
 }
 
@@ -74,6 +71,8 @@
 
 @media screen and (min-width: 768px) {
   .hero {
+    width: 100%;
+    max-width: 1216px;
     border-radius: 60px;
   }
   .contentWrapper {
@@ -81,14 +80,42 @@
   }
 
   .imageWrapper {
-    height: 496px; /* Высота для планшета */
-    border-radius: 60px; /* Скругления на планшете обычно больше */
+    height: 496px;
+    border-radius: 60px;
   }
 }
 
 @media screen and (min-width: 1280px) {
+  .hero {
+    max-width: 1216px;
+    width: 100%;
+    min-height: 384px;
+    margin: 0 auto;
+    border-radius: 60px;
+  }
+
+  .title {
+    max-width: 760px;
+    font-size: 90px;
+    line-height: 1;
+    margin-top: 112px;
+  }
+
+  .textWrapper {
+    display: flex;
+    gap: 73px;
+  }
+
+  .subtitle {
+    max-width: 255px;
+    font-size: 18px;
+    margin-top: 198px;
+  }
+
   .imageWrapper {
-    height: 384px; /* Высота для десктопа */
-    margin-top: 20px;
+    height: 384px;
+    width: 100%;
+    max-width: 1216px;
+    margin: 0 auto;
   }
 }

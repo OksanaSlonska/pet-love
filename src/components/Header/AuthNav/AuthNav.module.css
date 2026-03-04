@@ -28,3 +28,20 @@
 .registerBtn:hover {
   background-color: #fbe7c1;
 }
+
+@media screen and (min-width: 1280px) {
+  .auth {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .loginBtn {
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: var(--white);
+    padding: 15px 35px;
+  }
+  .registerBtn {
+    padding: 15px 20px;
+  }
+}

@@ -29,3 +29,43 @@
 .burgerBtn svg {
   stroke: var(--white);
 }
+
+.desktopNav,
+.desktopAuth {
+  display: none;
+}
+
+@media screen and (min-width: 1280px) {
+  .desktopNav {
+    display: flex;
+
+    flex: 1;
+    justify-content: center;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+
+    justify-content: flex-end;
+  }
+
+  .burgerBtn {
+    display: none;
+  }
+  .desktopNav,
+  .desktopAuth {
+    display: flex; /* Показываем навигацию и кнопки */
+  }
+
+  .headerWrapper {
+    gap: 0; /* Убираем лишние зазоры, если они были */
+  }
+
+  /* Навигация будет занимать свободное место и центрироваться */
+  .desktopNav {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+  }
+}
