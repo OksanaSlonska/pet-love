@@ -1,0 +1,20 @@
+<svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <symbol id="icon-heart" viewBox="0 0 32 32">
+            <path d="M15.991 7.561c-2.559-3.022-6.827-3.834-10.033-1.068s-3.658 7.393-1.14 10.665c1.613 2.096 5.743 5.983 8.505 8.506 0.918 0.839 1.376 1.258 1.926 1.426 0.473 0.145 1.012 0.145 1.485 0 0.55-0.168 1.008-0.588 1.926-1.426 2.761-2.524 6.892-6.41 8.505-8.506 2.518-3.272 2.122-7.928-1.14-10.665s-7.474-1.954-10.033 1.068z"></path>
+        </symbol>
+        <symbol id="icon-menu" viewBox="0 0 32 32">
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3" d="M4 16h24"></path>
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3" d="M4 8h24"></path>
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3" d="M4 24h24"></path>
+        </symbol>
+        <symbol id="icon-user" viewBox="0 0 32 32">
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3.2" d="M15.999 20c-4.227 0-7.986 2.041-10.379 5.208-0.515 0.682-0.773 1.022-0.764 1.483 0.006 0.356 0.23 0.805 0.51 1.024 0.362 0.284 0.865 0.284 1.869 0.284h17.527c1.004 0 1.507 0 1.869-0.284 0.28-0.22 0.504-0.669 0.51-1.024 0.008-0.461-0.249-0.801-0.764-1.483-2.393-3.167-6.152-5.208-10.379-5.208z"></path>
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3.2" d="M16 16c3.314 0 6-2.686 6-6s-2.686-6-6-6c-3.314 0-6 2.686-6 6s2.686 6 6 6z"></path>
+        </symbol>
+        <symbol id="icon-close" viewBox="0 0 32 32">
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3" d="M24 8l-16 16"></path>
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3" d="M8 8l16 16"></path>
+        </symbol>
+    </defs>
+</svg>

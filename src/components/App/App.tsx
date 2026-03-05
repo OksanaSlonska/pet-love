@@ -17,6 +17,9 @@ function App() {
         <Route path="news" element={<NewsPage />} />
         <Route path="notices" element={<NoticesPage />} />
         <Route path="friends" element={<OurFriendsPage />} />
+
+        <Route path="login" element={<div>Login Page</div>} />
+        <Route path="register" element={<div>Register Page</div>} />
       </Route>
     </Routes>
   );

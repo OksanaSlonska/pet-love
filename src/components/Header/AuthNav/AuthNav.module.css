@@ -1,0 +1,47 @@
+.loginBtn,
+.registerBtn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  border-radius: 30px;
+  text-align: center;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.loginBtn {
+  background-color: var(--accent-orange);
+  color: var(--white);
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.loginBtn:hover {
+  background-color: #f9b020;
+}
+
+.registerBtn {
+  background-color: var(--bg-light);
+  color: var(--accent-orange);
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.registerBtn:hover {
+  background-color: #fbe7c1;
+}
+
+@media screen and (min-width: 1280px) {
+  .auth {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .loginBtn {
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: var(--white);
+    padding: 15px 35px;
+  }
+  .registerBtn {
+    padding: 15px 20px;
+  }
+}
