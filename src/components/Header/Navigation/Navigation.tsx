@@ -1,20 +1,28 @@
-import { NavLink } from "react-router-dom";
-import s from "./Navigation.module.css";
+import { NavLink, useLocation } from "react-router-dom";
+import styles from "./Navigation.module.css";
 
-interface Props {
-  onClose?: () => void;
-}
+export default function Navigation() {
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
-export default function Navigation({ onClose }: Props) {
   return (
-    <nav className={s.nav}>
-      <NavLink to="/news" className={s.link} onClick={onClose}>
+    <nav className={styles.nav}>
+      <NavLink
+        to="/news"
+        className={`${styles.link} ${isHomePage ? styles.homeLink : ""}`}
+      >
         News
       </NavLink>
-      <NavLink to="/find-pet" className={s.link} onClick={onClose}>
+      <NavLink
+        to="/find-pet"
+        className={`${styles.link} ${isHomePage ? styles.homeLink : ""}`}
+      >
         Find pet
       </NavLink>
-      <NavLink to="/our-friends" className={s.link} onClick={onClose}>
+      <NavLink
+        to="/friends"
+        className={`${styles.link} ${isHomePage ? styles.homeLink : ""}`}
+      >
         Our friends
       </NavLink>
     </nav>

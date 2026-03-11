@@ -1,11 +1,10 @@
-import Header from "../../components/Header/Header";
 import styles from "./HomePage.module.css";
 
 export default function Home() {
   return (
     <div className={styles.pageWrapper}>
       <section className={styles.hero}>
-        <Header />
+        {/* <Header /> */}
         <div className="container">
           <div className={styles.textWrapper}>
             <h1 className={styles.title}>

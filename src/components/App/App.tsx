@@ -9,7 +9,7 @@ const OurFriendsPage = lazy(
   () => import("../../pages/OurFriendsPage/OurFriendsPage"),
 );
 
-function App() {
+export default function App() {
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
@@ -24,5 +24,3 @@ function App() {
     </Routes>
   );
 }
-
-export default App;

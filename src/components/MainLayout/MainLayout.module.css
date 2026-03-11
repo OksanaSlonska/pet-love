@@ -1,2 +1,18 @@
-.applayout {
+.appLayout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.3s ease;
+}
+
+.innerPageBackground {
+  background-color: #f9f9f9;
+}
+
+.homePageBackground {
+  background-color: #ffffff;
+}
+
+.mainContent {
+  flex-grow: 1;
 }

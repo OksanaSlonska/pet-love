@@ -42,7 +42,10 @@ export default function Header() {
             </button> */}
 
             {/* Бургер-меню */}
-            <button className={styles.burgerBtn} onClick={toggleMenu}>
+            <button
+              className={`${styles.burgerBtn} ${isHomePage ? styles.burgerLight : styles.burgerDark}`}
+              onClick={toggleMenu}
+            >
               <svg width="32" height="32">
                 <use href="/sprite.svg#icon-menu"></use>
               </svg>
