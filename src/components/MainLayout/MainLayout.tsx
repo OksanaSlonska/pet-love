@@ -1,25 +1,24 @@
-import { Suspense } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Header from "../Header/Header";
 import styles from "./MainLayout.module.css";
 
 // import Loader from '../Loader/Loader';
 
-const MainLayout: React.FC = () => {
-  const location = useLocation();
-  const isHomePage = location.pathname === "/";
+export default function MainLayout() {
+  const { pathname } = useLocation();
+  const isHomePage = pathname === "/";
 
   return (
-    <div className={styles.applayout}>
-      {!isHomePage && <Header />}
-
-      <main className={styles.pageWrapper}>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Outlet />
-        </Suspense>
+    <div
+      className={`
+      ${styles.appLayout} 
+      ${isHomePage ? styles.homePageBackground : styles.innerPageBackground}
+    `}
+    >
+      <Header />
+      <main className={styles.mainContent}>
+        <Outlet />
       </main>
     </div>
   );
-};
-
-export default MainLayout;
+}

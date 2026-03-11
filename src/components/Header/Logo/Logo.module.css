@@ -28,3 +28,11 @@
   margin: 0 1px;
   transform: translateY(1px);
 }
+
+.iconWrapper {
+  margin: 0 2px;
+}
+
+.iconHeart {
+  fill: #f6b83d; /* Желтое сердечко */
+}
