@@ -1,0 +1,27 @@
+.title {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 700;
+  font-size: 28px;
+}
+
+@media (min-width: 768px) {
+  .containerSearsh {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+
+  .containerSearsh :global(.searchForm) {
+    width: 230px;
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: 1280px) {
+  .containerSearsh :global(.searchForm) {
+    width: 230px;
+  }
+}
