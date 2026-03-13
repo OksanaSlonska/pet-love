@@ -6,6 +6,67 @@
   font-size: 28px;
 }
 
+.paginationWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pageLink {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(17, 17, 17, 0.1);
+  border-radius: 50%;
+  color: #111111;
+  text-decoration: none;
+  font-size: 18px;
+  background-color: transparent;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.pageLink:hover {
+  border-color: #f6b83d;
+}
+
+.activePage {
+  background-color: #f6b83d !important;
+  color: #ffffff !important;
+  border-color: #f6b83d !important;
+}
+
+.extraBtn {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(17, 17, 17, 0.1);
+  background: none;
+  cursor: pointer;
+}
+
 @media (min-width: 768px) {
   .containerSearsh {
     display: flex;
@@ -17,6 +78,22 @@
   .containerSearsh :global(.searchForm) {
     width: 230px;
     margin-bottom: 0;
+  }
+
+  .paginationWrapper {
+    gap: 8px;
+    margin-top: 60px;
+  }
+
+  .pagination {
+    gap: 8px;
+  }
+
+  .pageLink,
+  .extraBtn {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
   }
 }
 

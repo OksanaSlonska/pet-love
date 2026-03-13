@@ -1,13 +1,17 @@
 import { useState } from "react";
 import styles from "./SearchField.module.css";
-import { LuSearch } from "react-icons/lu"; // Если используешь react-icons
+import { LuSearch } from "react-icons/lu"; 
 
-export default function SearchField() {
+interface SearchFieldProps{
+  onSearch: (query: string) => void;
+}
+
+export default function SearchField({onSearch}: SearchFieldProps) {
   const [value, setValue] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Ищем:", value);
+    onSearch(value);
   };
 
   return (
