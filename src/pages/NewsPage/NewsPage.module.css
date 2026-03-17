@@ -67,6 +67,14 @@
   cursor: pointer;
 }
 
+.loaderWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 0;
+  width: 100%;
+}
+
 @media (min-width: 768px) {
   .containerSearsh {
     display: flex;

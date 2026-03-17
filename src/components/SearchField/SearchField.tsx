@@ -1,15 +1,20 @@
 import { useState } from "react";
 import styles from "./SearchField.module.css";
-import { LuSearch } from "react-icons/lu"; 
+import { LuSearch, LuX } from "react-icons/lu";
 
-interface SearchFieldProps{
+interface SearchFieldProps {
   onSearch: (query: string) => void;
 }
 
-export default function SearchField({onSearch}: SearchFieldProps) {
+export default function SearchField({ onSearch }: SearchFieldProps) {
   const [value, setValue] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleClear = () => {
+    setValue("");
+    onSearch("");
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSearch(value);
   };
@@ -18,14 +23,27 @@ export default function SearchField({onSearch}: SearchFieldProps) {
     <form className={styles.searchForm} onSubmit={handleSubmit}>
       <input
         type="text"
-        className={styles.searchInput}
-        placeholder="Search"
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        placeholder="Search"
+        className={styles.searchInput}
       />
-      <button type="submit" className={styles.searchButton}>
-        <LuSearch size={18} />
-      </button>
+
+      <div className={styles.buttonsWrapper}>
+        {value && (
+          <button
+            type="button"
+            onClick={handleClear}
+            className={styles.clearBtn}
+          >
+            <LuX size={18} />
+          </button>
+        )}
+
+        <button type="submit" className={styles.searchBtn}>
+          <LuSearch size={18} />
+        </button>
+      </div>
     </form>
   );
 }
