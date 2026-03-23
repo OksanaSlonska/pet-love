@@ -62,7 +62,10 @@ export default function NewsPage() {
       <div className="container">
         <div className={styles.containerSearsh}>
           <h2 className={styles.title}>News</h2>
-          <SearchField onSearch={handleSubmit} />
+          <SearchField
+            value={searchQuery}
+            onSearch={(newVal) => setSearchQuery(newVal)}
+          />
         </div>
 
         {isLoading ? (

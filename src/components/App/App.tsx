@@ -15,7 +15,7 @@ export default function App() {
       <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
         <Route path="news" element={<NewsPage />} />
-        <Route path="notices" element={<NoticesPage />} />
+        <Route path="find-pet" element={<NoticesPage />} />
         <Route path="friends" element={<OurFriendsPage />} />
 
         <Route path="login" element={<div>Login Page</div>} />
