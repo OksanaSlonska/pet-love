@@ -1,16 +1,13 @@
-import { useState } from "react";
 import styles from "./SearchField.module.css";
 import { LuSearch, LuX } from "react-icons/lu";
 
 interface SearchFieldProps {
   onSearch: (query: string) => void;
+  value: string;
 }
 
-export default function SearchField({ onSearch }: SearchFieldProps) {
-  const [value, setValue] = useState("");
-
+export default function SearchField({ onSearch, value }: SearchFieldProps) {
   const handleClear = () => {
-    setValue("");
     onSearch("");
   };
 
@@ -24,7 +21,7 @@ export default function SearchField({ onSearch }: SearchFieldProps) {
       <input
         type="text"
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => onSearch(e.target.value)}
         placeholder="Search"
         className={styles.searchInput}
       />

@@ -1,0 +1,173 @@
+.card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 24px;
+  max-width: 340px;
+  min-height: 440px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.image {
+  width: 100%;
+  height: 178px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2b2b2a;
+  margin: 0;
+}
+
+.starIcon {
+  width: 16px;
+  height: 16px;
+  color: #f6b83d;
+}
+
+.ratingCount {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28571;
+  color: #2b2b2a;
+}
+
+/* Характеристики питомца */
+.infoList {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  gap: 4px;
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.infoItem {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.label {
+  font-size: 10px;
+  color: rgba(38, 38, 38, 0.5);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.value {
+  font-size: 12px;
+  font-weight: 500;
+  color: #262626;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  white-space: nowrap;
+}
+
+.starIcon {
+  color: #ffc107;
+}
+
+.comment {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #2b2b2b;
+  margin: 0;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Цена слева, кнопки справа */
+  gap: 14px; /* Расстояние между ценой и кнопками */
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.price {
+  font-size: 20px;
+  font-weight: 700;
+  color: #262626;
+  margin: 0;
+}
+
+.btnGroup {
+  display: flex;
+  flex-direction: row; /* Сами кнопки остаются в ряд */
+  gap: 10px;
+  width: 100%;
+}
+
+.learnMoreBtn {
+  flex-grow: 1; /* Кнопка Learn More растягивается, заполняя пространство */
+  background-color: #f6b83d;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.learnMoreBtn:hover {
+  background-color: #e5a934; /* Чуть темнее при наведении */
+}
+
+.favoriteBtn {
+  flex-shrink: 0; /* Сердечко не сжимается */
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background-color: #fff4df;
+  color: #f6b83d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background-color 0.3s ease;
+}
+
+.favoriteBtn:hover {
+  transform: scale(1.05); /* Легкий эффект пульсации */
+  background-color: #fbeed5; /* Чуть насыщеннее фон */
+}
+
+.heartIcon {
+  /* Если иконка кажется тонкой, можно добавить stroke-width */
+  stroke-width: 2;
+}
+
+@media (min-width: 768px) {
+  .card {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+  }
+}
