@@ -15,6 +15,8 @@ import {
   LuChevronsLeft,
   LuChevronsRight,
 } from "react-icons/lu";
+import Modal from "../../components/Modal/Modal";
+import NoticeDetail from "../../components/NoticeDetail/NoticeDetail";
 
 interface SelectOption {
   value: string;
@@ -62,41 +64,50 @@ export default function NoticesPage() {
   const [location, setLocation] = useState("");
   const [debouncedLocation, setDebouncedLocation] = useState("");
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPet, setSelectedPet] = useState<any>(null);
+
   const handleSearch = (query: string) => {
     console.log("Searching for:", query);
     setSearch(query);
     setPage(1);
   };
 
-  
   const handleCategoryChange = (newValue: SelectOption | null) => {
     setCategory(newValue);
-    setPage(1); 
+    setPage(1);
   };
-
 
   const handleTagClick = (tag: string) => {
     setActiveFilter(activeFilter === tag ? null : tag);
-    setPage(1); 
+    setPage(1);
+  };
+
+  const handleLearnMore = (pet: any) => {
+    setSelectedPet(pet);
+    setIsModalOpen(true);
+  };
+
+  // Функция закрытия
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedPet(null);
   };
 
   useEffect(() => {
     const fetchNotices = async () => {
       setIsLoading(true);
       try {
-      
         const params = new URLSearchParams({
           page: String(page),
-          limit: "6", 
+          limit: "6",
           keyword: search,
           category: category?.value || "",
           sex: gender?.value || "",
           species: type?.value || "",
         });
 
-   
         if (activeFilter) {
-        
           if (activeFilter === "Cheap") params.append("sortBy", "cheap");
           if (activeFilter === "Popular") params.append("sortBy", "popular");
         }
@@ -107,7 +118,7 @@ export default function NoticesPage() {
         );
 
         setNotices(response.data.results);
-        setTotalPages(response.data.totalPages); 
+        setTotalPages(response.data.totalPages);
       } catch (error) {
         console.error("Ошибка при загрузке объявлений:", error);
       } finally {
@@ -116,24 +127,23 @@ export default function NoticesPage() {
     };
 
     fetchNotices();
-  
   }, [page, search, category, gender, type, activeFilter, debouncedLocation]);
 
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedLocation(location);
-    }, 500); // Задержка 500 мс
+    }, 500);
 
-    return () => clearTimeout(handler); 
+    return () => clearTimeout(handler);
   }, [location]);
 
   const handleReset = () => {
     setCategory(null);
     setGender(null);
     setType(null);
-    setSearch(""); 
+    setSearch("");
     setLocation("");
-    setActiveFilter(null); 
+    setActiveFilter(null);
     setPage(1);
   };
 
@@ -169,7 +179,7 @@ export default function NoticesPage() {
                 value={gender}
                 onChange={(val) => {
                   setGender(val);
-                  setPage(1); 
+                  setPage(1);
                 }}
                 className={styles.selectItem}
               />
@@ -184,7 +194,7 @@ export default function NoticesPage() {
                 value={type}
                 onChange={(val) => {
                   setType(val);
-                  setPage(1); 
+                  setPage(1);
                 }}
                 className={styles.selectItem}
               />
@@ -256,11 +266,10 @@ export default function NoticesPage() {
           <p>Loading pets...</p>
         ) : (
           <ul className={styles.noticesList}>
-        
             {Array.isArray(notices) &&
               notices.map((notice) => (
                 <li key={notice._id}>
-                  <NoticeCard pet={notice} />
+                  <NoticeCard pet={notice} onLearnMore={handleLearnMore} />
                 </li>
               ))}
           </ul>
@@ -302,6 +311,12 @@ export default function NoticesPage() {
           </button>
         </div>
       </div>
+
+      {isModalOpen && selectedPet && (
+        <Modal onClose={handleCloseModal}>
+          <NoticeDetail pet={selectedPet} />
+        </Modal>
+      )}
     </section>
   );
 }

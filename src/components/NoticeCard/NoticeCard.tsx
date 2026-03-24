@@ -11,13 +11,19 @@ const formatDate = (dateString: string): string => {
   if (isNaN(date.getTime())) return dateString;
 
   const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // Месяцы в JS начинаются с 0
+  const month = String(date.getMonth() + 1).padStart(2, "0");
   const year = date.getFullYear();
 
   return `${day}.${month}.${year}`;
 };
 
-export default function NoticeCard({ pet }: { pet: any }) {
+export default function NoticeCard({
+  pet,
+  onLearnMore,
+}: {
+  pet: any;
+  onLearnMore: (pet: any) => void;
+}) {
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
@@ -67,7 +73,11 @@ export default function NoticeCard({ pet }: { pet: any }) {
         )}
 
         <div className={styles.btnGroup}>
-          <button type="button" className={styles.learnMoreBtn}>
+          <button
+            type="button"
+            className={styles.learnMoreBtn}
+            onClick={() => onLearnMore(pet)}
+          >
             Learn more
           </button>
           <button type="button" className={styles.favoriteBtn}>
