@@ -79,8 +79,20 @@
     max-width: none;
     border-radius: 60px;
   }
-  .contentWrapper {
-    padding-top: 80px;
+
+  .title {
+    margin-top: 60px;
+    max-width: 640px;
+    font-weight: 700;
+    font-size: 80px;
+  }
+
+  .subtitle {
+    max-width: 255px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1;
+    margin-left: 400px;
   }
 
   .imageWrapper {

@@ -1,47 +1,70 @@
+.auth {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
 .loginBtn,
 .registerBtn {
-  display: block;
-  width: 100%;
-  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 30px;
-  text-align: center;
   font-weight: 700;
   text-decoration: none;
+  white-space: nowrap;
+  transition: all 250ms ease;
+  padding: 12px 20px;
 }
 
 .loginBtn {
-  background-color: var(--accent-orange);
-  color: var(--white);
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.loginBtn:hover {
-  background-color: #f9b020;
+  background-color: #f6b83d;
+  color: #fff;
 }
 
 .registerBtn {
-  background-color: var(--bg-light);
-  color: var(--accent-orange);
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: #fff4df;
+  color: #f6b83d;
 }
 
-.registerBtn:hover {
-  background-color: #fbe7c1;
+.mobileAuth {
+  flex-direction: column !important;
+  width: 100%;
+  gap: 12px;
+}
+
+.dark,
+.light {
+  width: 100% !important;
+  height: 48px;
+  padding: 0;
+}
+
+.loginBtn.dark {
+  background-color: #f6b83d;
+  color: #fff;
+}
+.registerBtn.dark {
+  background-color: #fff4df;
+  color: #f6b83d;
+}
+
+.loginBtn.light {
+  background-color: #fff;
+  color: #f6b83d;
+}
+.registerBtn.light {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: #fff;
 }
 
 @media screen and (min-width: 1280px) {
-  .auth {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-  }
-
-  .loginBtn {
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    color: var(--white);
+  .loginBtn:not(.dark):not(.light) {
     padding: 15px 35px;
   }
-  .registerBtn {
+  .registerBtn:not(.dark):not(.light) {
     padding: 15px 20px;
   }
 }
