@@ -1,7 +1,11 @@
 import { NavLink, useLocation } from "react-router-dom";
 import styles from "./Navigation.module.css";
 
-export default function Navigation() {
+interface NavigationProps {
+  onClose?: () => void;
+}
+
+export default function Navigation({ onClose }: NavigationProps) {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 

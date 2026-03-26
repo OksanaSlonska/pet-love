@@ -2,12 +2,19 @@ import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import Logo from "./Logo/Logo";
 import styles from "./Header.module.css";
-import MobileMenu from "../MobileMenu/MobileMenu";
+import { MobileMenu } from "../MobileMenu/MobileMenu";
 import Navigation from "./Navigation/Navigation";
 import AuthNav from "./AuthNav/AuthNav";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsLoggedIn, selectUser } from "../../redux/auth/selectors";
+import { logOut } from "../../redux/auth/operations";
+import type { AppDispatch } from "../../redux/store";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch<AppDispatch>();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -30,18 +37,33 @@ export default function Header() {
           </div>
 
           <div className={styles.controls}>
-            <div className={styles.desktopAuth}>
-              <AuthNav />
+            {/* Этот блок отвечает за Авторизацию ИЛИ Профиль */}
+            <div className={styles.authWrapper}>
+              {isLoggedIn ? (
+                <div className={styles.userMenu}>
+                  {/* LOG OUT и Имя на мобилках спрячем через CSS */}
+                  <button
+                    className={styles.logoutBtn}
+                    onClick={() => dispatch(logOut())}
+                  >
+                    LOG OUT
+                  </button>
+
+                  <div className={styles.userInfo}>
+                    <div className={styles.userIconThumb}>
+                      <svg width="20" height="20">
+                        <use href="/sprite.svg#icon-user"></use>
+                      </svg>
+                    </div>
+                    <span className={styles.userName}>{user?.name}</span>
+                  </div>
+                </div>
+              ) : (
+                <AuthNav />
+              )}
             </div>
 
-            {/* Кнопка профиля (UserNav) */}
-            {/* <button className={styles.userBtn}>
-              <svg width="20" height="20">
-                <use href="/sprite.svg#icon-user"></use>
-              </svg>
-            </button> */}
-
-            {/* Бургер-меню */}
+            {/* Бургер-меню (всегда в конце) */}
             <button
               className={`${styles.burgerBtn} ${isHomePage ? styles.burgerLight : styles.burgerDark}`}
               onClick={toggleMenu}
@@ -54,7 +76,11 @@ export default function Header() {
         </div>
       </div>
 
-      <MobileMenu isOpen={isOpen} onClose={toggleMenu} />
+      <MobileMenu
+        isOpen={isOpen}
+        onClose={toggleMenu}
+        isHomePage={isHomePage}
+      />
     </header>
   );
 }
