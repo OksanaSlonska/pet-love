@@ -7,7 +7,7 @@ import { LuEye, LuEyeOff } from "react-icons/lu";
 import { register } from "../../redux/auth/operations";
 import * as Yup from "yup";
 
-import { AppDispatch } from "../../redux/store";
+import type { AppDispatch } from "../../redux/store";
 import styles from "./RegistrationPage.module.css";
 
 const registerSchema = Yup.object().shape({

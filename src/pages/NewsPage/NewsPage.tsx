@@ -40,7 +40,7 @@ export default function NewsPage() {
         setIsLoading(true);
 
         const response = await axios.get(
-          "https://petlove.b.goit.study/api/news",
+          `${import.meta.env.VITE_API_BASE_URL}/news`,
           {
             params: { page, limit: 6, keyword: searchQuery },
           },

@@ -15,12 +15,12 @@ export default function OurFriendsPage() {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          "https://petlove.b.goit.study/api/friends",
+          `${import.meta.env.VITE_API_BASE_URL}/friends`,
         );
 
         setFriends(response.data);
       } catch (error) {
-        console.error("Ошибка при загрузке друзей:", error);
+        console.error("Error loading friends:", error);
       } finally {
         setIsLoading(false);
       }

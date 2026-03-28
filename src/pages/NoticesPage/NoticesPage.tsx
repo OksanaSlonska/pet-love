@@ -65,7 +65,7 @@ export default function NoticesPage() {
   const [debouncedLocation, setDebouncedLocation] = useState("");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPet, setSelectedPet] = useState(null);
+  const [selectedPet, setSelectedPet] = useState<INotice | null>(null);
 
   const handleSearch = (query: string) => {
     console.log("Searching for:", query);
@@ -113,7 +113,7 @@ export default function NoticesPage() {
         if (debouncedLocation) params.append("location", debouncedLocation);
 
         const response = await axios.get(
-          `https://petlove.b.goit.study/api/notices?${params.toString()}`,
+          `${import.meta.env.VITE_API_BASE_URL}/notices?${params.toString()}`,
         );
 
         setNotices(response.data.results);

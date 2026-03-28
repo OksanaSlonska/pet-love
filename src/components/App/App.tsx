@@ -1,11 +1,11 @@
 import { lazy } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import MainLayout from "../MainLayout/MainLayout";
 import LoginPage from "../../pages/LoginPage/LoginPage";
 import RegistrationPage from "../../pages/RegistrationPage/RegistrationPage";
 
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { refreshUser } from "../../redux/auth/operations";
 
 import type { AppDispatch } from "../../redux/store";
