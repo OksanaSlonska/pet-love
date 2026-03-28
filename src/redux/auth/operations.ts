@@ -1,52 +1,49 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import type {
+  AuthResponse,
+  LoginCredentials,
+  RegisterCredentials,
+  AddPetResponse,
+  UpdateUserResponse,
+} from "../../types/pet";
+import type { RootState } from "../store";
 
-// Устанавливаем базовый URL твоего API
-axios.defaults.baseURL = "https://petlove.b.goit.study/api";
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 
-// Утилита для добавления токена в заголовки всех будущих запросов
 const setAuthHeader = (token: string) => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
-// Утилита для удаления токена (пригодится для Logout)
 const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = "";
 };
 
-/*
- * POST @ /users/signup
- * body: { name, email, password }
- */
-export const register = createAsyncThunk(
+export const register = createAsyncThunk<AuthResponse, RegisterCredentials>(
   "auth/register",
-  async (credentials: any, thunkAPI) => {
+  async (credentials, thunkAPI) => {
     try {
       const response = await axios.post("/users/signup", credentials);
-      // После успешной регистрации бэкенд обычно присылает токен.
-      // Мы сразу записываем его в настройки axios, чтобы следующие запросы были авторизованы.
+
       setAuthHeader(response.data.token);
       return response.data;
-    } catch (error: any) {
-      // Если ошибка — передаем её в Redux, чтобы показать пользователю
-      return thunkAPI.rejectWithValue(error.message);
+    } catch (error: unknown) {
+      const err = error as Error;
+      return thunkAPI.rejectWithValue(err.message);
     }
   },
 );
 
-/*
- * POST @ /users/signin
- * body: { email, password }
- */
-export const logIn = createAsyncThunk(
+export const logIn = createAsyncThunk<AuthResponse, LoginCredentials>(
   "auth/login",
-  async (credentials: any, thunkAPI) => {
+  async (credentials, thunkAPI) => {
     try {
       const response = await axios.post("/users/signin", credentials);
       setAuthHeader(response.data.token);
       return response.data;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message);
+    } catch (error: unknown) {
+      const err = error as Error;
+      return thunkAPI.rejectWithValue(err.message);
     }
   },
 );
@@ -54,30 +51,102 @@ export const logIn = createAsyncThunk(
 export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
     await axios.post("/users/signout");
-    // Очищаем токен из axios после успешного выхода
+    clearAuthHeader();
+
     axios.defaults.headers.common.Authorization = "";
-  } catch (error: any) {
-    return thunkAPI.rejectWithValue(error.message);
+  } catch (error: unknown) {
+    const err = error as Error;
+    return thunkAPI.rejectWithValue(err.message);
   }
 });
 
-export const refreshUser = createAsyncThunk(
-  "auth/refresh",
-  async (_, thunkAPI) => {
-    const state = thunkAPI.getState() as any;
-    const persistedToken = state.auth.token;
+export const refreshUser = createAsyncThunk<
+  AuthResponse,
+  void,
+  { state: RootState }
+>("auth/refresh", async (_, thunkAPI) => {
+  const state = thunkAPI.getState();
+  const persistedToken = state.auth.token;
 
-    if (!persistedToken) {
-      return thunkAPI.rejectWithValue("No token found");
-    }
+  if (!persistedToken) {
+    return thunkAPI.rejectWithValue("No token found");
+  }
 
+  try {
+    setAuthHeader(persistedToken);
+
+    const { data } = await axios.get("/users/current/full");
+    return data;
+  } catch (error: unknown) {
+    const err = error as Error;
+    return thunkAPI.rejectWithValue(err.message);
+  }
+});
+
+export const addFavorite = createAsyncThunk(
+  "auth/addFavorite",
+  async (id: string, thunkAPI) => {
     try {
-      // Устанавливаем токен в заголовки axios
-      axios.defaults.headers.common.Authorization = `Bearer ${persistedToken}`;
-      const { data } = await axios.get("/users/current");
-      return data; // Сервер вернет данные юзера
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message);
+      const response = await axios.post(`/notices/favorites/add/${id}`);
+      return response.data;
+    } catch (error: unknown) {
+      const err = error as Error;
+      return thunkAPI.rejectWithValue(err.message);
     }
   },
 );
+
+export const removeFavorite = createAsyncThunk(
+  "auth/removeFavorite",
+  async (id: string, thunkAPI) => {
+    try {
+      const response = await axios.delete(`/notices/favorites/remove/${id}`);
+      return response.data;
+    } catch (error: unknown) {
+      const err = error as Error;
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  },
+);
+
+export const addPet = createAsyncThunk<AddPetResponse, FormData | object>(
+  "auth/addPet",
+  async (petData, thunkAPI) => {
+    try {
+      const { data } = await axios.post<AddPetResponse>(
+        "/users/current/pets/add",
+        petData,
+      );
+      return data;
+    } catch (error: unknown) {
+      const err = error as Error;
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  },
+);
+
+export const deletePet = createAsyncThunk<AuthResponse, string>(
+  "auth/deletePet",
+  async (id: string, thunkAPI) => {
+    try {
+      const response = await axios.delete(`/users/current/pets/remove/${id}`);
+      return response.data;
+    } catch (error: unknown) {
+      const err = error as Error;
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  },
+);
+
+export const updateUserInfo = createAsyncThunk<
+  UpdateUserResponse,
+  FormData | object
+>("auth/updateUser", async (userData, thunkAPI) => {
+  try {
+    const response = await axios.patch("/users/current/edit", userData);
+    return response.data;
+  } catch (error: unknown) {
+    const err = error as Error;
+    return thunkAPI.rejectWithValue(err.message);
+  }
+});

@@ -8,13 +8,18 @@ interface ModalProps {
 }
 
 export default function Modal({ children, onClose }: ModalProps) {
-  // Закрытие по ESC
   useEffect(() => {
+    const originalStyle = window.getComputedStyle(document.body).overflow;
+    document.body.style.overflow = "hidden";
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.code === "Escape") onClose();
     };
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = originalStyle;
+    };
   }, [onClose]);
 
   return (

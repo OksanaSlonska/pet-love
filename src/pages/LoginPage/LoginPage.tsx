@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { FiX, FiCheck } from "react-icons/fi";
 import { LuEye, LuEyeOff } from "react-icons/lu";
-import { logIn } from "../../redux/auth/operations";
+import { logIn, refreshUser } from "../../redux/auth/operations";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
-import { AppDispatch } from "../../redux/store";
+import type { AppDispatch } from "../../redux/store";
 import styles from "../RegistrationPage/RegistrationPage.module.css";
 
 const loginSchema = Yup.object().shape({
@@ -28,14 +29,17 @@ export default function LoginPage() {
   const dispatch = useDispatch<AppDispatch>();
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (values: LoginFormValues) => {
-    // Нам нечего вырезать, просто форматируем email и отправляем
-    const dataForServer = {
-      ...values,
-      email: values.email.trim().toLowerCase(),
-    };
+  const navigate = useNavigate();
 
-    dispatch(logIn(dataForServer));
+  const handleSubmit = async (values: LoginFormValues) => {
+    try {
+      await dispatch(logIn(values)).unwrap();
+      await dispatch(refreshUser()).unwrap();
+
+      navigate("/profile");
+    } catch (error) {
+      console.error("Ошибка входа:", error);
+    }
   };
 
   return (
@@ -43,25 +47,22 @@ export default function LoginPage() {
       <div className={styles.pageWrapper}>
         <div className={styles.imageSection}>
           <picture>
-            {/* Десктопная собака */}
             <source
               media="(min-width: 1280px)"
               srcSet="/images/dog-desktop-1x.webp 1x, /images/dog-desktop-2x.webp 2x"
               type="image/webp"
             />
-            {/* Планшетная собака */}
+
             <source
               media="(min-width: 768px)"
               srcSet="/images/dog-tablet-1x.webp 1x, /images/dog-tablet-2x.webp 2x"
               type="image/webp"
             />
-            {/* Мобильная собака */}
+
             <img
               src="/images/dog-mobile-1x.webp"
               alt="Cute dog"
-              className={
-                styles.catImg
-              } /* Оставляем класс catImg, чтобы стили подтянулись */
+              className={styles.catImg}
             />
           </picture>
 
@@ -85,7 +86,6 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* Правая секция с формой */}
         <div className={styles.formSection}>
           <h2 className={styles.title}>Log in</h2>
           <p className={styles.text}>

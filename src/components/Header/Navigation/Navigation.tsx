@@ -14,18 +14,21 @@ export default function Navigation({ onClose }: NavigationProps) {
       <NavLink
         to="/news"
         className={`${styles.link} ${isHomePage ? styles.homeLink : ""}`}
+        onClick={onClose}
       >
         News
       </NavLink>
       <NavLink
         to="/find-pet"
         className={`${styles.link} ${isHomePage ? styles.homeLink : ""}`}
+        onClick={onClose}
       >
         Find pet
       </NavLink>
       <NavLink
         to="/friends"
         className={`${styles.link} ${isHomePage ? styles.homeLink : ""}`}
+        onClick={onClose}
       >
         Our friends
       </NavLink>

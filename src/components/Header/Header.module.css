@@ -80,6 +80,11 @@
 }
 
 @media screen and (max-width: 767px) {
+  .authWrapper {
+    display: flex;
+    align-items: center;
+  }
+
   .logoutBtn,
   .userName {
     display: none;
@@ -167,6 +172,28 @@
     transition: all 0.3s ease;
     color: #f6f6f6;
   }
+
+  .logoutBtn:hover {
+    background-color: #ffffff;
+    color: #f6b83d;
+  }
+
+  .userLink {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .userLink:hover .userName {
+    color: #f6b83d;
+  }
+
+  .userLink:hover .userIconThumb {
+    background-color: #fbe7c1;
+    transform: translateY(-2px);
+  }
 }
 
 @media screen and (min-width: 1280px) {
@@ -247,6 +274,17 @@
     font-size: 18px;
     color: #262626;
   }
+}
+
+.profileLink {
+  text-decoration: none; /* Убираем подчеркивание, если оно есть */
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.profileLink:hover {
+  transform: scale(1.05); /* Легкое увеличение при наведении */
 }
 
 @media screen and (min-width: 1280px) {
