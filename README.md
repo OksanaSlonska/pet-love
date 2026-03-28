@@ -1,73 +1,59 @@
-# React + TypeScript + Vite
+# 🐾 PetLove — Social Platform for Pet Lovers
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**PetLove** is a modern, full-featured React application designed for finding pets, browsing pet-related news, and managing a personal pet owner profile. This project demonstrates a robust architecture using the latest frontend technologies and best practices.
 
-Currently, two official plugins are available:
+## 🚀 Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **User Authentication:** Full registration and login flow with secure token management.
+- **User Profile:** Personal dashboard where users can update their information and view their pets.
+- **Pet Marketplace (Notices):** Advanced filtering by category (sell, lost, in good hands), gender, and pet type.
+- **News Feed:** Real-time news list with search functionality and smooth pagination.
+- **My Pets:** A dedicated section to add and manage your own pets with form validation.
+- **Favorites:** One-click "Add to Favorites" functionality for pet notices.
+- **Responsive Design:** Fully optimized for Mobile, Tablet, and Desktop views.
 
-## React Compiler
+## 🛠 Tech Stack
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- **Core:** React 18, TypeScript, Vite.
+- **State Management:** Redux Toolkit (Slices, Operations, Selectors).
+- **Routing:** React Router DOM (with Private and Restricted route logic).
+- **API:** Axios (Global configuration with `baseURL` and Auth headers).
+- **Forms:** React Hook Form + Yup (schema-based validation).
+- **Styling:** CSS Modules, Modern-normalize.
+- **UI Components:** React-spinners, React-paginate, Lucide-react (Icons).
 
-## Expanding the ESLint configuration
+## 📦 Installation & Setup
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/OksanaSlonska/pet-love
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Configure Environment Variables:**
+    Create a `.env` file in the root directory and add:
+    ```env
+    VITE_API_BASE_URL=https://petlove.b.goit.study/api
+    ```
+4.  **Start the development server:**
+    ```bash
+    npm run dev
+    ```
+5.  **Build for production:**
+    ```bash
+    npm run build
+    ```
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🏗 Project Architecture
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+The project follows a clean, modular structure:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- `src/redux` — Global state logic separated by features (auth, pets, notices).
+- `src/pages` — View components for each route.
+- `src/components` — Reusable UI elements (Modals, Forms, Navigation).
+- `src/types` — Centralized TypeScript interfaces and types.
+- `src/hooks` — Custom React hooks for shared logic.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---

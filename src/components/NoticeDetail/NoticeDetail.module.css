@@ -1,0 +1,149 @@
+.container {
+  color: #262626;
+}
+
+.imgBlock {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.imgWrapper {
+  position: relative;
+}
+
+.petImg {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.categoryBadge {
+  position: absolute;
+  top: 10px;
+  left: -20px;
+  background-color: #fff4df;
+  color: #f6b83d;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.ratingRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+
+.ratingValue {
+  font-size: 14px;
+  color: #262626;
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+.starActive {
+  color: #f6b83d;
+}
+.starInactive {
+  color: rgba(38, 38, 38, 0.1);
+}
+
+.infoTable {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 24px;
+  gap: 16px;
+}
+
+.infoCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.label {
+  font-size: 12px;
+  color: rgba(38, 38, 38, 0.5);
+  margin-bottom: 4px;
+  text-transform: capitalize;
+}
+
+.value {
+  font-size: 14px;
+  font-weight: 500;
+  color: #262626;
+}
+
+.comment {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 32px;
+  color: #262626;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.btnGroup {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.addFavoriteBtn,
+.contactBtn {
+  flex: 1;
+  height: 48px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.addFavoriteBtn {
+  background-color: #f6b83d;
+  color: #fff;
+}
+
+.addFavoriteBtn:hover {
+  background-color: #e5a52e;
+}
+
+.contactBtn {
+  background-color: rgba(246, 184, 61, 0.1);
+  color: #f6b83d;
+}
+
+.contactBtn:hover {
+  background-color: rgba(246, 184, 61, 0.15);
+}

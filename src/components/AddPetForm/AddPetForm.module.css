@@ -1,0 +1,309 @@
+.formContainer {
+  background-color: #ffffff;
+  padding: 32px;
+  border-radius: 30px;
+  box-shadow: 0px 4px 30px rgba(38, 38, 38, 0.05);
+
+  width: 100%;
+  max-width: 440px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #262626;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  color: rgba(38, 38, 38, 0.5);
+  font-size: 14px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 335px;
+}
+
+.sexContainer {
+  display: flex;
+  gap: 8px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.sexIcon {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+.activeFemale .sexIcon,
+.activeMale .sexIcon,
+.activeMultiple .sexIcon {
+  stroke: #ffffff;
+}
+.pawIcon {
+  width: 40px;
+  height: 40px;
+  fill: #f6b83d;
+}
+
+.sexBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.sexBtn:hover {
+  transform: scale(1.1);
+}
+
+.female {
+  background-color: #fff0f0;
+  color: #f43f5e;
+}
+.male {
+  background-color: #e6f4ff;
+  color: #54adff;
+}
+.multiple {
+  background-color: rgba(255, 193, 7, 0.1);
+  color: #ffc107;
+}
+
+.activeFemale {
+  background-color: #f43f5e;
+  color: white;
+}
+
+.activeMale {
+  background-color: #54adff;
+  color: white;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid rgba(38, 38, 38, 0.15);
+  border-radius: 30px;
+  outline: none;
+  font-size: 14px;
+  color: #262626;
+}
+
+.input::placeholder {
+  color: rgba(38, 38, 38, 0.5);
+}
+
+.input:focus {
+  border-color: #f6b83d;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+}
+
+.pawIcon {
+  width: 44px;
+  height: 44px;
+  fill: #f6b83d;
+}
+
+.uploadIcon {
+  width: 18px;
+  height: 18px;
+  stroke: #f6b83d;
+  fill: none;
+}
+
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.selectWrapper {
+  position: relative;
+  flex: 1;
+}
+
+.selectArrow {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #262626;
+}
+
+.activeFemale {
+  background-color: #f43f5e !important;
+  color: white !important;
+}
+.activeMale {
+  background-color: #54adff !important;
+  color: white !important;
+}
+.activeMultiple {
+  background-color: #f6b83d !important;
+  color: white !important;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.backBtn {
+  flex: 1;
+  padding: 14px;
+  background-color: rgba(38, 38, 38, 0.05);
+  border-radius: 30px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.submitBtn {
+  flex: 1;
+  padding: 14px;
+  background-color: #f6b83d;
+  color: white;
+  border-radius: 30px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.submitBtn:hover {
+  background-color: #f5b025;
+}
+
+.avatarPlaceholder {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.pawCircle {
+  width: 80px;
+  height: 80px;
+  background-color: #fff4df;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
+
+.inputRow {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.uploadBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background-color: #fff4df;
+  border: none;
+  border-radius: 30px;
+  color: #262626;
+  font-size: 12px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.dateWrapper,
+.selectWrapper {
+  flex: 1;
+  position: relative;
+}
+
+.calendarIcon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.female {
+  background-color: #fff0f0;
+  color: #f43f5e;
+}
+.male {
+  background-color: #e6f4ff;
+  color: #54adff;
+}
+.multiple {
+  background-color: #fff9e6;
+  color: #f6b83d;
+}
+
+@media screen and (min-width: 768px) {
+  .formContainer {
+    padding: 60px 80px;
+    border-radius: 60px;
+    max-width: 704px;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    max-width: 100%;
+    width: 100%;
+
+    gap: 16px;
+  }
+
+  .sexContainer {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    justify-content: flex-start;
+    align-self: flex-start;
+    margin-bottom: 8px;
+  }
+
+  .title {
+    align-self: flex-start;
+    text-align: left;
+    width: 100%;
+  }
+
+  .avatarPlaceholder {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .inputRow,
+  .actions {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+}
