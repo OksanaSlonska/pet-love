@@ -109,6 +109,11 @@
     border-radius: 60px;
   }
 
+  .textWrapper {
+    display: flex;
+    gap: 73px;
+  }
+
   .title {
     max-width: 760px;
     font-size: 90px;
@@ -116,15 +121,11 @@
     margin-top: 112px;
   }
 
-  .textWrapper {
-    display: flex;
-    gap: 73px;
-  }
-
   .subtitle {
     max-width: 255px;
     font-size: 18px;
     margin-top: 198px;
+    margin-left: 0px;
   }
 
   .imageWrapper {
