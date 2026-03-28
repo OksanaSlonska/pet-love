@@ -9,10 +9,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoggedIn, selectUser } from "../../redux/auth/selectors";
 import { logOut } from "../../redux/auth/operations";
 import type { AppDispatch } from "../../redux/store";
+import { Link } from "react-router-dom";
+
+import LogoutModal from "../LogoutModal/LogoutModal";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
   const user = useSelector(selectUser);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -24,63 +29,75 @@ export default function Header() {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
+  const handleConfirmLogout = () => {
+    dispatch(logOut());
+    setIsLogoutModalOpen(false);
+  };
+
   return (
-    <header
-      className={`${styles.header} ${isHomePage ? styles.homeHeader : ""}`}
-    >
-      <div className="container">
-        <div className={styles.headerWrapper}>
-          <Logo variant={isHomePage ? "light" : "dark"} />
+    <>
+      <header
+        className={`${styles.header} ${isHomePage ? styles.homeHeader : ""}`}
+      >
+        <div className="container">
+          <div className={styles.headerWrapper}>
+            <Logo variant={isHomePage ? "light" : "dark"} />
 
-          <div className={styles.desktopNav}>
-            <Navigation />
-          </div>
-
-          <div className={styles.controls}>
-            {/* Этот блок отвечает за Авторизацию ИЛИ Профиль */}
-            <div className={styles.authWrapper}>
-              {isLoggedIn ? (
-                <div className={styles.userMenu}>
-                  {/* LOG OUT и Имя на мобилках спрячем через CSS */}
-                  <button
-                    className={styles.logoutBtn}
-                    onClick={() => dispatch(logOut())}
-                  >
-                    LOG OUT
-                  </button>
-
-                  <div className={styles.userInfo}>
-                    <div className={styles.userIconThumb}>
-                      <svg width="20" height="20">
-                        <use href="/sprite.svg#icon-user"></use>
-                      </svg>
-                    </div>
-                    <span className={styles.userName}>{user?.name}</span>
-                  </div>
-                </div>
-              ) : (
-                <AuthNav />
-              )}
+            <div className={styles.desktopNav}>
+              <Navigation />
             </div>
 
-            {/* Бургер-меню (всегда в конце) */}
-            <button
-              className={`${styles.burgerBtn} ${isHomePage ? styles.burgerLight : styles.burgerDark}`}
-              onClick={toggleMenu}
-            >
-              <svg width="32" height="32">
-                <use href="/sprite.svg#icon-menu"></use>
-              </svg>
-            </button>
+            <div className={styles.controls}>
+              <div className={styles.authWrapper}>
+                {isLoggedIn ? (
+                  <div className={styles.userMenu}>
+                    <button
+                      className={styles.logoutBtn}
+                      onClick={() => setIsLogoutModalOpen(true)}
+                    >
+                      LOG OUT
+                    </button>
+
+                    <Link to="/profile" className={styles.userLink}>
+                      <div className={styles.userInfo}>
+                        <div className={styles.userIconThumb}>
+                          <svg width="20" height="20">
+                            <use href="/sprite.svg#icon-user"></use>
+                          </svg>
+                        </div>
+                        <span className={styles.userName}>{user?.name}</span>
+                      </div>
+                    </Link>
+                  </div>
+                ) : (
+                  <AuthNav />
+                )}
+              </div>
+
+              <button
+                className={`${styles.burgerBtn} ${isHomePage ? styles.burgerLight : styles.burgerDark}`}
+                onClick={toggleMenu}
+              >
+                <svg width="32" height="32">
+                  <use href="/sprite.svg#icon-menu"></use>
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <MobileMenu
-        isOpen={isOpen}
-        onClose={toggleMenu}
-        isHomePage={isHomePage}
-      />
-    </header>
+        <MobileMenu
+          isOpen={isOpen}
+          onClose={toggleMenu}
+          isHomePage={isHomePage}
+        />
+      </header>
+      {isLogoutModalOpen && (
+        <LogoutModal
+          onClose={() => setIsLogoutModalOpen(false)}
+          onConfirm={handleConfirmLogout}
+        />
+      )}
+    </>
   );
 }

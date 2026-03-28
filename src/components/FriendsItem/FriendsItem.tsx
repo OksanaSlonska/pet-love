@@ -26,8 +26,6 @@ interface FriendsItemProps {
 export default function FriendsItem({ data }: FriendsItemProps) {
   const { title, imageUrl, email, address, phone, workDays, addressUrl } = data;
 
-  // Находим первый попавшийся рабочий интервал для примера
-  // (Позже можно сделать проверку по текущему дню недели)
   const openDay = Array.isArray(workDays)
     ? workDays.find((day) => day.isOpen)
     : null;
@@ -38,7 +36,7 @@ export default function FriendsItem({ data }: FriendsItemProps) {
       : "Day and night";
 
   return (
-    <li className={styles.card}>
+    <ul className={styles.card}>
       <div className={styles.timeBadge}>{workingHours}</div>
 
       <div className={styles.flexContainer}>
@@ -62,7 +60,6 @@ export default function FriendsItem({ data }: FriendsItemProps) {
               )}
             </li>
 
-            {/* ADDRESS */}
             <li>
               <span className={styles.label}>Address: </span>
               {address ? (
@@ -79,7 +76,6 @@ export default function FriendsItem({ data }: FriendsItemProps) {
               )}
             </li>
 
-            {/* PHONE */}
             <li>
               <span className={styles.label}>Phone: </span>
               {phone ? (
@@ -93,6 +89,6 @@ export default function FriendsItem({ data }: FriendsItemProps) {
           </ul>
         </div>
       </div>
-    </li>
+    </ul>
   );
 }

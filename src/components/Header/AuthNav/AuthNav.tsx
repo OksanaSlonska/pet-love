@@ -7,12 +7,10 @@ interface AuthNavProps {
 }
 
 export default function AuthNav({ onClose, variant }: AuthNavProps) {
-  // Определяем стили для контейнера и кнопок в зависимости от variant
   const isMobileMenu = variant === "light" || variant === "dark";
 
   const containerClass = `${styles.auth} ${isMobileMenu ? styles.mobileAuth : ""}`;
 
-  // Динамические классы для кнопок
   const loginClass = `${styles.loginBtn} ${variant ? styles[variant] : ""}`;
   const registerClass = `${styles.registerBtn} ${variant ? styles[variant] : ""}`;
 

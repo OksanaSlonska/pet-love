@@ -52,7 +52,6 @@
   color: #2b2b2a;
 }
 
-/* Характеристики питомца */
 .infoList {
   display: flex;
   justify-content: space-between;
@@ -102,8 +101,8 @@
 .footer {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Цена слева, кнопки справа */
-  gap: 14px; /* Расстояние между ценой и кнопками */
+  justify-content: space-between;
+  gap: 14px;
   margin-top: auto;
   padding-top: 16px;
 }
@@ -117,13 +116,13 @@
 
 .btnGroup {
   display: flex;
-  flex-direction: row; /* Сами кнопки остаются в ряд */
+  flex-direction: row;
   gap: 10px;
   width: 100%;
 }
 
 .learnMoreBtn {
-  flex-grow: 1; /* Кнопка Learn More растягивается, заполняя пространство */
+  flex-grow: 1;
   background-color: #f6b83d;
   color: #fff;
   border: none;
@@ -134,11 +133,11 @@
 }
 
 .learnMoreBtn:hover {
-  background-color: #e5a934; /* Чуть темнее при наведении */
+  background-color: #e5a934;
 }
 
 .favoriteBtn {
-  flex-shrink: 0; /* Сердечко не сжимается */
+  flex-shrink: 0;
   width: 46px;
   height: 46px;
   border-radius: 50%;
@@ -155,13 +154,30 @@
 }
 
 .favoriteBtn:hover {
-  transform: scale(1.05); /* Легкий эффект пульсации */
-  background-color: #fbeed5; /* Чуть насыщеннее фон */
+  transform: scale(1.05);
+  background-color: #fbeed5;
 }
 
 .heartIcon {
-  /* Если иконка кажется тонкой, можно добавить stroke-width */
   stroke-width: 2;
+}
+
+.deleteBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background-color: #fff4df;
+  color: #f6b83d;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.deleteBtn:hover {
+  background-color: #fbecca;
 }
 
 @media (min-width: 768px) {

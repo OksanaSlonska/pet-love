@@ -111,7 +111,6 @@ span.link {
 
 @media screen and (min-width: 768px) {
   .card {
-    /* На планшете можно сделать чуть больше внутренние отступы */
     padding: 44px 20px 20px;
   }
 

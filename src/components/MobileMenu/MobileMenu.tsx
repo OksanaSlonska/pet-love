@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { logOut } from "../../redux/auth/operations"; 
+import { logOut } from "../../redux/auth/operations";
 import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import type { AppDispatch } from "../../redux/store";
 
@@ -18,11 +18,9 @@ export const MobileMenu = ({
   onClose,
   isHomePage,
 }: MobileMenuProps) => {
-
   const dispatch: AppDispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  
   const handleLogout = () => {
     dispatch(logOut());
     onClose();
@@ -41,7 +39,6 @@ export const MobileMenu = ({
           <svg
             width="32"
             height="32"
-           
             style={{ stroke: isHomePage ? "#262626" : "#fff" }}
           >
             <use href="/sprite.svg#icon-close"></use>
@@ -60,7 +57,6 @@ export const MobileMenu = ({
           ) : (
             <AuthNav
               onClose={onClose}
-              
               variant={isHomePage ? "dark" : "light"}
             />
           )}

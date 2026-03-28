@@ -65,7 +65,7 @@ export default function NoticesPage() {
   const [debouncedLocation, setDebouncedLocation] = useState("");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPet, setSelectedPet] = useState<any>(null);
+  const [selectedPet, setSelectedPet] = useState(null);
 
   const handleSearch = (query: string) => {
     console.log("Searching for:", query);
@@ -83,12 +83,11 @@ export default function NoticesPage() {
     setPage(1);
   };
 
-  const handleLearnMore = (pet: any) => {
+  const handleLearnMore = (pet: INotice) => {
     setSelectedPet(pet);
     setIsModalOpen(true);
   };
 
-  // Функция закрытия
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedPet(null);

@@ -2,8 +2,6 @@ import { Outlet, useLocation } from "react-router-dom";
 import Header from "../Header/Header";
 import styles from "./MainLayout.module.css";
 
-// import Loader from '../Loader/Loader';
-
 export default function MainLayout() {
   const { pathname } = useLocation();
   const isHomePage = pathname === "/";
