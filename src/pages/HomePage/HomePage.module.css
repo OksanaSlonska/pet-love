@@ -31,6 +31,7 @@
   color: var(--white);
 
   word-wrap: break-word;
+  margin-top: 60px;
 }
 
 .title span {

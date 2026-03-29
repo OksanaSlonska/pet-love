@@ -1,0 +1,97 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  max-width: 466px;
+  text-align: center;
+}
+
+.iconCircle {
+  width: 80px;
+  height: 80px;
+  background-color: #fff4df;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 40px;
+}
+
+.title {
+  color: #f6b83d;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.text {
+  font-size: 14px;
+  line-height: 1.28;
+  color: #2b2b2b;
+  margin-bottom: 28px;
+}
+
+.navWrapper {
+  width: 100%;
+}
+
+.navWrapper :global(nav) {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  width: 100%;
+  margin-top: 24px;
+}
+
+.navWrapper :global(.container),
+.navWrapper :global(div),
+.navWrapper :global(nav) {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: auto !important;
+  margin: 0 auto !important;
+  float: none !important;
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    max-width: 335px; /* Ширина как на твоем скриншоте макета */
+    padding: 40px 20px; /* Уменьшаем внутренние отступы */
+  }
+
+  .title {
+    font-size: 20px; /* Чуть меньше заголовок */
+    margin-bottom: 14px;
+  }
+
+  .text {
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  .iconCircle {
+    width: 60px; /* Уменьшаем иконку */
+    height: 60px;
+    font-size: 30px;
+  }
+}
+
+/* Центрирование кнопок (оставляем без изменений) */
+.navWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.navWrapper :global(.container),
+.navWrapper :global(nav) {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+}

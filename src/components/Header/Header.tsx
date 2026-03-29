@@ -48,32 +48,31 @@ export default function Header() {
             </div>
 
             <div className={styles.controls}>
-              <div className={styles.authWrapper}>
-                {isLoggedIn ? (
-                  <div className={styles.userMenu}>
-                    <button
-                      className={styles.logoutBtn}
-                      onClick={() => setIsLogoutModalOpen(true)}
-                    >
-                      LOG OUT
-                    </button>
+              {isLoggedIn ? (
+                <div className={styles.userMenu}>
+                  <button
+                    className={styles.logoutBtn}
+                    onClick={() => setIsLogoutModalOpen(true)}
+                  >
+                    LOG OUT
+                  </button>
 
-                    <Link to="/profile" className={styles.userLink}>
-                      <div className={styles.userInfo}>
-                        <div className={styles.userIconThumb}>
-                          <svg width="20" height="20">
-                            <use href="/sprite.svg#icon-user"></use>
-                          </svg>
-                        </div>
-                        <span className={styles.userName}>{user?.name}</span>
+                  <Link to="/profile" className={styles.userLink}>
+                    <div className={styles.userInfo}>
+                      <div className={styles.userIconThumb}>
+                        <svg width="20" height="20">
+                          <use href="/sprite.svg#icon-user"></use>
+                        </svg>
                       </div>
-                    </Link>
-                  </div>
-                ) : (
+                      <span className={styles.userName}>{user?.name}</span>
+                    </div>
+                  </Link>
+                </div>
+              ) : (
+                <div className={styles.headerAuthOnlyDesktop}>
                   <AuthNav />
-                )}
-              </div>
-
+                </div>
+              )}
               <button
                 className={`${styles.burgerBtn} ${isHomePage ? styles.burgerLight : styles.burgerDark}`}
                 onClick={toggleMenu}

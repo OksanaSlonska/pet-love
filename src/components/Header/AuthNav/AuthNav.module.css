@@ -21,6 +21,7 @@
 .loginBtn {
   background-color: #f6b83d;
   color: #fff;
+  border: 1px solid rgba(249, 249, 249, 0.628);
 }
 
 .registerBtn {
@@ -58,6 +59,17 @@
   background-color: transparent;
   border: 1px solid rgba(255, 255, 255, 0.5);
   color: #fff;
+}
+
+.loginBtn:hover {
+  background-color: #ffffff;
+  color: #f6b83d;
+  border: 1px solid #f6b83d;
+}
+
+.registerBtn:hover {
+  background-color: #f6b83d;
+  color: #ffffff;
 }
 
 @media screen and (min-width: 1280px) {

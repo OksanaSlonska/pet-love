@@ -1,6 +1,5 @@
 .header {
   width: 100%;
-  margin: 0;
   padding: 20px;
   background-color: #f6f6f6;
 }
@@ -10,9 +9,9 @@
   top: 0;
   left: 0;
   width: 100%;
-  background-color: transparent;
+  background-color: transparent !important;
   z-index: 100;
-  border: none;
+  padding-top: 50px;
 }
 
 .headerWrapper {
@@ -20,49 +19,148 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding-top: 18px;
 }
 
 .controls {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 }
 
-.userBtn {
-  background-color: var(--bg-light);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
+.headerAuthOnlyDesktop {
+  display: none !important;
+}
+
+.burgerBtn {
   display: flex;
-  justify-content: center;
   align-items: center;
-}
-
-.userBtn svg {
-  fill: var(--accent-orange);
-}
-
-.burgerBtn svg {
-  stroke: var(--white);
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
 }
 
 .burgerLight svg {
-  stroke: var(--white);
+  stroke: #ffffff;
 }
 
 .burgerDark svg {
-  stroke: #111111;
+  stroke: #262626;
 }
 
-.desktopNav,
-.authWrapper {
+.homeHeader .userName {
+  color: #ffffff;
+}
+
+.homeHeader .logoutBtn {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  transition: all 0.25s ease;
+}
+
+.homeHeader .logoutBtn:hover {
+  background-color: #ffffff;
+  color: #f6b83d;
+  border-color: #ffffff;
+}
+
+.userMenu {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.userName {
+  font-weight: 700;
+  font-size: 16px;
+  color: #262626;
   display: none;
 }
 
-.mobileUserIcon {
+.userLink {
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease;
+}
+
+.homeHeader .userLink:hover {
+  transform: scale(1.05);
+}
+
+.logoutBtn {
+  display: none;
+}
+
+.burgerBtn {
   display: flex;
   align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
+
+.burgerLight svg {
+  stroke: #ffffff;
+}
+
+.burgerDark svg {
+  stroke: #262626;
+}
+
+@media screen and (min-width: 768px) {
+  .headerAuthOnlyDesktop {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .userName {
+    display: block;
+  }
+
+  .logoutBtn {
+    display: block;
+    padding: 12px 28px;
+    border-radius: 30px;
+    background: #f6b83d;
+    color: #fff;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+
+  .userMenu {
+    gap: 16px;
+  }
+}
+
+.desktopNav {
+  display: none;
+}
+
+@media screen and (min-width: 1280px) {
+  .desktopNav {
+    display: flex;
+    gap: 20px;
+  }
+  .burgerBtn {
+    display: none;
+  }
 }
 
 .userIconThumb {
@@ -79,216 +177,8 @@
   fill: #f6b83d;
 }
 
-@media screen and (max-width: 767px) {
-  .authWrapper {
-    display: flex;
-    align-items: center;
-  }
-
-  .logoutBtn,
-  .userName {
-    display: none;
-  }
-
-  .userInfo {
-    display: flex;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  .controls {
-    gap: 8px;
-  }
-
-  .authWrapper {
-    display: flex;
-    align-items: center;
-  }
-
-  .userMenu {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .logoutBtn,
-  .userName {
-    display: block;
-  }
-
-  .burgerBtn {
-    display: block;
-  }
-  .userInfo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .userName {
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 1.25;
-    letter-spacing: -0.03em;
-    margin: 0;
-
-    color: #262626;
-    white-space: nowrap;
-  }
-
-  .homeHeader .userName {
-    color: #ffffff;
-  }
-
-  .homeHeader .burgerBtn svg {
-    stroke: #ffffff;
-  }
-
-  .userName {
-    color: #262626;
-  }
-
-  .burgerBtn svg {
-    stroke: #262626;
-  }
-
-  .homeHeader .logoutBtn {
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    color: #ffffff;
-  }
-
-  .homeHeader .userIconThumb svg {
-    fill: #f6b83d;
-  }
-
-  .logoutBtn {
-    padding: 12px 28px;
-    border-radius: 30px;
-
-    background: #f6b83d;
-    font-weight: 700;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: #f6f6f6;
-  }
-
-  .logoutBtn:hover {
-    background-color: #ffffff;
-    color: #f6b83d;
-  }
-
-  .userLink {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-
-  .userLink:hover .userName {
-    color: #f6b83d;
-  }
-
-  .userLink:hover .userIconThumb {
-    background-color: #fbe7c1;
-    transform: translateY(-2px);
-  }
-}
-
-@media screen and (min-width: 1280px) {
-  .mobileUserIcon {
-    display: none;
-  }
-
-  .desktopAuth {
-    display: block;
-  }
-
-  .desktopNav {
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    gap: 20px;
-  }
-
-  .controls {
-    display: flex;
-    align-items: center;
-
-    justify-content: flex-end;
-  }
-
-  .burgerBtn {
-    display: none;
-  }
-
-  .desktopNav {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-  }
-
-  .userMenu {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .logoutBtn {
-    padding: 12px 35px;
-    background-color: #f6b83d;
-    color: #ffffff;
-    border: none;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 16px;
-    text-transform: uppercase;
-    cursor: pointer;
-
-    position: static;
-  }
-
-  .userInfo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .userIconThumb {
-    width: 40px;
-    height: 40px;
-    background-color: #fff4df;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .userIconThumb svg {
-    fill: #f6b83d;
-  }
-
-  .userName {
-    font-weight: 700;
-    font-size: 18px;
-    color: #262626;
-  }
-}
-
-.profileLink {
-  text-decoration: none; /* Убираем подчеркивание, если оно есть */
+.userLink {
+  text-decoration: none;
   display: flex;
   align-items: center;
-  transition: transform 0.2s ease;
-}
-
-.profileLink:hover {
-  transform: scale(1.05); /* Легкое увеличение при наведении */
-}
-
-@media screen and (min-width: 1280px) {
-  .burgerBtn {
-    display: none;
-  }
 }

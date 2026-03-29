@@ -8,6 +8,8 @@ import { selectFavorites } from "../../redux/auth/selectors";
 import { addFavorite, removeFavorite } from "../../redux/auth/operations";
 import CongratsModal from "../CongratsModal/CongratsModal";
 import { useState } from "react";
+import { selectIsLoggedIn, selectUser } from "../../redux/auth/selectors";
+import { AttentionModal } from "../ModalAttention/ModalAttention";
 
 const formatDate = (dateString: string): string => {
   if (!dateString) return "Unknown";
@@ -35,11 +37,14 @@ export default function NoticeCard({
   onLearnMore,
   isFavoritePage = false,
 }: NoticeCardProps) {
+  const [showCongrats, setShowCongrats] = useState(false);
+
+  const [isAttentionModalOpen, setIsAttentionModalOpen] = useState(false);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
   const dispatch = useDispatch<AppDispatch>();
 
   const favorites = useSelector(selectFavorites);
-
-  const [showCongrats, setShowCongrats] = useState(false);
 
   const isLiked = favorites.some((fav: string | INotice) => {
     const favId = typeof fav === "object" ? fav._id : fav;
@@ -47,6 +52,12 @@ export default function NoticeCard({
   });
 
   const handleFavoriteClick = () => {
+    console.log("Клик по сердечку. Статус isLoggedIn:", isLoggedIn);
+    if (!isLoggedIn) {
+      setIsAttentionModalOpen(true);
+      return;
+    }
+
     if (isFavoritePage || isLiked) {
       dispatch(removeFavorite(pet._id));
     } else {
@@ -139,6 +150,10 @@ export default function NoticeCard({
         </div>
       </div>
       {showCongrats && <CongratsModal onClose={() => setShowCongrats(false)} />}
+
+      {isAttentionModalOpen && (
+        <AttentionModal onClose={() => setIsAttentionModalOpen(false)} />
+      )}
     </>
   );
 }
