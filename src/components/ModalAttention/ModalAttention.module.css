@@ -59,12 +59,12 @@
 
 @media screen and (max-width: 767px) {
   .container {
-    max-width: 335px; /* Ширина как на твоем скриншоте макета */
-    padding: 40px 20px; /* Уменьшаем внутренние отступы */
+    max-width: 335px;
+    padding: 40px 20px;
   }
 
   .title {
-    font-size: 20px; /* Чуть меньше заголовок */
+    font-size: 20px;
     margin-bottom: 14px;
   }
 
@@ -74,13 +74,12 @@
   }
 
   .iconCircle {
-    width: 60px; /* Уменьшаем иконку */
+    width: 60px;
     height: 60px;
     font-size: 30px;
   }
 }
 
-/* Центрирование кнопок (оставляем без изменений) */
 .navWrapper {
   width: 100%;
   display: flex;

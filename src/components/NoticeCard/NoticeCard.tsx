@@ -8,7 +8,7 @@ import { selectFavorites } from "../../redux/auth/selectors";
 import { addFavorite, removeFavorite } from "../../redux/auth/operations";
 import CongratsModal from "../CongratsModal/CongratsModal";
 import { useState } from "react";
-import { selectIsLoggedIn, selectUser } from "../../redux/auth/selectors";
+import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import { AttentionModal } from "../ModalAttention/ModalAttention";
 
 const formatDate = (dateString: string): string => {
