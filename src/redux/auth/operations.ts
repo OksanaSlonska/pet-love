@@ -4,10 +4,16 @@ import type {
   AuthResponse,
   LoginCredentials,
   RegisterCredentials,
-  AddPetResponse,
   UpdateUserResponse,
+  UpdateUserValues,
+  PetFormValues,
+  PetResponse,
 } from "../../types/pet";
 import type { RootState } from "../store";
+
+interface PetApiPayload extends Omit<PetFormValues, "imgURL"> {
+  imgURL: string;
+}
 
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 
@@ -109,21 +115,63 @@ export const removeFavorite = createAsyncThunk(
   },
 );
 
-export const addPet = createAsyncThunk<AddPetResponse, FormData | object>(
-  "auth/addPet",
-  async (petData, thunkAPI) => {
-    try {
-      const { data } = await axios.post<AddPetResponse>(
-        "/users/current/pets/add",
-        petData,
+export const addPet = createAsyncThunk<
+  PetResponse,
+  PetFormValues,
+  { rejectValue: string }
+>("pets/add", async (petData: PetFormValues, thunkAPI) => {
+  try {
+    let finalImgURL = "";
+
+    if (petData.imgURL instanceof File) {
+      const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+      const preset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+
+      const formData = new FormData();
+      formData.append("file", petData.imgURL);
+      formData.append("upload_preset", preset);
+
+      const cloudRes = await fetch(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        { method: "POST", body: formData },
       );
-      return data;
-    } catch (error: unknown) {
-      const err = error as Error;
-      return thunkAPI.rejectWithValue(err.message);
+
+      if (!cloudRes.ok) {
+        throw new Error("Failed to upload image to Cloudinary");
+      }
+
+      const cloudData = await cloudRes.json();
+      finalImgURL = cloudData.secure_url;
+    } else {
+      finalImgURL = petData.imgURL;
     }
-  },
-);
+
+    if (!finalImgURL) {
+      return thunkAPI.rejectWithValue("Pet image is required");
+    }
+
+    const apiPayload: PetApiPayload = {
+      title: petData.title,
+      name: petData.name,
+      birthday: petData.birthday,
+      species: petData.species,
+      sex: petData.sex,
+      imgURL: finalImgURL,
+    };
+
+    const response = await axios.post("/users/current/pets/add", apiPayload);
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      const message = error.response?.data?.message || error.message;
+      return thunkAPI.rejectWithValue(message);
+    }
+    if (error instanceof Error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+    return thunkAPI.rejectWithValue("An unexpected error occurred");
+  }
+});
 
 export const deletePet = createAsyncThunk<AuthResponse, string>(
   "auth/deletePet",
@@ -140,13 +188,55 @@ export const deletePet = createAsyncThunk<AuthResponse, string>(
 
 export const updateUserInfo = createAsyncThunk<
   UpdateUserResponse,
-  FormData | object
->("auth/updateUser", async (userData, thunkAPI) => {
+  UpdateUserValues,
+  { rejectValue: string }
+>("auth/update", async (userData, thunkAPI) => {
   try {
-    const response = await axios.patch("/users/current/edit", userData);
+    let avatarUrl = userData.avatar;
+
+    if (userData.avatar instanceof File) {
+      const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+      const preset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+
+      const cloudFormData = new FormData();
+      cloudFormData.append("file", userData.avatar);
+      cloudFormData.append("upload_preset", preset);
+
+      const cloudRes = await fetch(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        {
+          method: "POST",
+          body: cloudFormData,
+        },
+      );
+
+      if (!cloudRes.ok) {
+        const errorData = await cloudRes.json();
+        throw new Error(errorData.error?.message || "Cloudinary upload failed");
+      }
+
+      const cloudData = await cloudRes.json();
+      avatarUrl = cloudData.secure_url;
+    }
+
+    const response = await axios.patch("/users/current/edit", {
+      name: userData.name,
+      phone: userData.phone,
+      email: userData.email,
+      avatar: avatarUrl,
+    });
+
     return response.data;
   } catch (error: unknown) {
-    const err = error as Error;
-    return thunkAPI.rejectWithValue(err.message);
+    if (axios.isAxiosError(error)) {
+      const message = error.response?.data?.message || error.message;
+      return thunkAPI.rejectWithValue(message);
+    }
+
+    if (error instanceof Error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+
+    return thunkAPI.rejectWithValue("An unexpected error occurred");
   }
 });

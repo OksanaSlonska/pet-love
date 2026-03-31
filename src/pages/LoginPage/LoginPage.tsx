@@ -38,7 +38,7 @@ export default function LoginPage() {
 
       navigate("/profile");
     } catch (error) {
-      console.error("Ошибка входа:", error);
+      console.error("Login error:", error);
     }
   };
 

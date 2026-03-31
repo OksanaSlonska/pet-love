@@ -37,6 +37,19 @@
   object-fit: cover;
 }
 
+.emptyAvatar {
+  color: #f6b83d;
+  width: 94px;
+  height: 94px;
+  background-color: #fff4df;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 8px;
+  overflow: hidden;
+}
+
 .inputsWrapper {
   display: flex;
   flex-direction: column;
@@ -134,4 +147,11 @@
   position: absolute;
   bottom: -14px;
   left: 16px;
+}
+
+.uploadIcon {
+  width: 18px;
+  height: 18px;
+  stroke: #f6b83d;
+  fill: none;
 }

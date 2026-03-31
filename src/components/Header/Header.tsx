@@ -60,9 +60,17 @@ export default function Header() {
                   <Link to="/profile" className={styles.userLink}>
                     <div className={styles.userInfo}>
                       <div className={styles.userIconThumb}>
-                        <svg width="20" height="20">
-                          <use href="/sprite.svg#icon-user"></use>
-                        </svg>
+                        {user?.avatarURL || user?.avatar ? (
+                          <img
+                            src={user.avatarURL || user.avatar}
+                            alt={user.name}
+                            className={styles.userAvatarImg}
+                          />
+                        ) : (
+                          <svg width="20" height="20">
+                            <use href="/sprite.svg#icon-user"></use>
+                          </svg>
+                        )}
                       </div>
                       <span className={styles.userName}>{user?.name}</span>
                     </div>

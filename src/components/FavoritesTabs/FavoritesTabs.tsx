@@ -41,7 +41,7 @@ export default function Favorites() {
       </div>
 
       <div className={styles.container}>
-        {favoritePets.length > 0 ? (
+        {favoritePets?.length > 0 ? (
           <div className={styles.grid}>
             {favoritePets.map((pet: INotice) => (
               <NoticeCard
@@ -55,7 +55,7 @@ export default function Favorites() {
         ) : (
           <div className={styles.emptyWrapper}>
             <p className={styles.emptyText}>
-              Oops,{" "}
+              Oops,
               <span className={styles.highlight}>
                 looks like there aren't any furries
               </span>

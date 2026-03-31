@@ -11,7 +11,7 @@ import {
   updateUserInfo,
 } from "./operations";
 
-import type { Pet, User, AuthResponse } from "../../types/pet";
+import type { User, AuthResponse } from "../../types/pet";
 
 interface AuthState {
   user: User;
@@ -30,10 +30,6 @@ const initialState: AuthState = {
   isLoading: false,
   error: null,
 };
-
-interface AddPetResponse {
-  pets: Pet[];
-}
 
 const authSlice = createSlice({
   name: "auth",
@@ -127,16 +123,15 @@ const authSlice = createSlice({
         state.user.favorites = action.payload;
       })
 
-      .addCase(
-        addPet.fulfilled,
-        (state, action: PayloadAction<AddPetResponse>) => {
-          if (action.payload.pets) {
-            state.user.pets = action.payload.pets;
-          }
-
-          state.isLoading = false;
-        },
-      )
+      .addCase(addPet.fulfilled, (state, action) => {
+        if (state.user) {
+          state.user = {
+            ...state.user,
+            ...action.payload,
+          };
+        }
+        state.isLoading = false;
+      })
 
       .addCase(deletePet.fulfilled, (state, action) => {
         state.user = { ...state.user, ...action.payload };
@@ -147,11 +142,16 @@ const authSlice = createSlice({
         state.error = action.payload as string;
       })
       .addCase(updateUserInfo.fulfilled, (state, action) => {
-        state.user = { ...state.user, ...action.payload };
+        const updatedUser = action.payload;
 
-        if (action.payload.avatar) {
-          state.user.avatarURL = action.payload.avatar;
-        }
+        const newPhoto = updatedUser.avatar || updatedUser.avatarURL;
+
+        state.user = {
+          ...state.user,
+          ...updatedUser,
+
+          avatarURL: newPhoto || state.user.avatarURL,
+        };
 
         state.isLoading = false;
       });

@@ -15,6 +15,7 @@ export interface INotice {
 export interface Pet {
   _id: string;
   name: string;
+
   birthday: string;
   sex: string;
   species: string;
@@ -28,6 +29,8 @@ export interface User {
   pets: Pet[];
   avatarURL?: string;
   phone?: string;
+
+  avatar?: string;
 }
 
 export interface AuthResponse {
@@ -61,4 +64,33 @@ export interface UpdateUserResponse {
   email: string;
   phone: string;
   avatar?: string;
+  avatarURL?: string;
+}
+
+export interface UpdateUserValues {
+  name: string;
+  email: string;
+  phone: string;
+  avatar: string | File;
+}
+
+export interface PetFormValues {
+  title: string;
+  name: string;
+  birthday: string;
+  species: string;
+  sex: string;
+  imgURL: File | string;
+}
+
+export interface PetResponse {
+  _id: string;
+  name: string;
+  title: string;
+  birthday: string;
+  species: string;
+  sex: string;
+  imgURL: string;
+  createdAt?: string;
+  updatedAt?: string;
 }

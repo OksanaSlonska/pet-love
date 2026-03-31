@@ -89,11 +89,6 @@
   gap: 8px 12px;
 }
 
-.speciesBlock {
-  grid-column: span 3;
-  margin-top: 8px;
-}
-
 @media screen and (min-width: 1280px) {
   .card {
     width: 100%;

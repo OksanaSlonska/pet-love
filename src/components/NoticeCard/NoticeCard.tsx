@@ -10,6 +10,7 @@ import CongratsModal from "../CongratsModal/CongratsModal";
 import { useState } from "react";
 import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import { AttentionModal } from "../ModalAttention/ModalAttention";
+import { refreshUser } from "../../redux/auth/operations";
 
 const formatDate = (dateString: string): string => {
   if (!dateString) return "Unknown";
@@ -52,20 +53,25 @@ export default function NoticeCard({
   });
 
   const handleFavoriteClick = () => {
-    console.log("Клик по сердечку. Статус isLoggedIn:", isLoggedIn);
     if (!isLoggedIn) {
       setIsAttentionModalOpen(true);
       return;
     }
 
     if (isFavoritePage || isLiked) {
-      dispatch(removeFavorite(pet._id));
+      dispatch(removeFavorite(pet._id))
+        .unwrap()
+        .then(() => {
+          dispatch(refreshUser());
+        });
     } else {
       const isFirstTime = favorites.length === 0;
 
       dispatch(addFavorite(pet._id))
         .unwrap()
         .then(() => {
+          dispatch(refreshUser());
+
           if (isFirstTime) {
             setShowCongrats(true);
           }

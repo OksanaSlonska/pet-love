@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { FiX, FiCheck } from "react-icons/fi";
 import { LuEye, LuEyeOff } from "react-icons/lu";
-import { register } from "../../redux/auth/operations";
+import { register, refreshUser } from "../../redux/auth/operations";
+import { useNavigate } from "react-router-dom";
+
 import * as Yup from "yup";
 
 import type { AppDispatch } from "../../redux/store";
@@ -34,7 +36,9 @@ export default function RegistrationPage() {
   const dispatch = useDispatch<AppDispatch>();
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (values: RegisterFormValues) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (values: RegisterFormValues) => {
     const { confirmPassword: _, ...dataForServer } = values;
     void _;
 
@@ -43,7 +47,15 @@ export default function RegistrationPage() {
       email: dataForServer.email.trim().toLowerCase(),
     };
 
-    dispatch(register(finalData));
+    try {
+      await dispatch(register(finalData)).unwrap();
+
+      await dispatch(refreshUser()).unwrap();
+
+      navigate("/profile");
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
   };
 
   return (

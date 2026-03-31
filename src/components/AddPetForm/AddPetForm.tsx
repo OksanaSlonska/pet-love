@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { addPet } from "../../redux/auth/operations";
 import type { AppDispatch } from "../../redux/store";
 import { LuChevronDown, LuCalendar } from "react-icons/lu";
+import { useState, useEffect, useRef } from "react";
 import styles from "./AddPetForm.module.css";
 
 interface AddPetFormProps {
@@ -12,7 +13,7 @@ interface AddPetFormProps {
 
 interface PetFormValues {
   sex: string;
-  imgURL: string;
+  imgURL: string | File;
   title: string;
   name: string;
   birthday: string;
@@ -20,21 +21,26 @@ interface PetFormValues {
 }
 
 export default function AddPetForm({ onBack }: AddPetFormProps) {
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+    };
+  }, [previewUrl]);
 
   const handleSubmit = async (values: PetFormValues) => {
-    const petData = {
-      title: values.title,
-      name: values.name,
-      birthday: values.birthday,
-      species: values.species,
-      sex: values.sex,
-      imgURL: values.imgURL,
-    };
-    try {
-      await dispatch(addPet(petData)).unwrap();
+    if (!values.imgURL) {
+      alert("Please upload a photo of your pet!");
+      return;
+    }
 
+    try {
+      await dispatch(addPet(values)).unwrap();
       navigate("/profile");
     } catch (error) {
       console.error("Failed to add pet:", error);
@@ -42,7 +48,7 @@ export default function AddPetForm({ onBack }: AddPetFormProps) {
   };
 
   return (
-    <Formik
+    <Formik<PetFormValues>
       initialValues={{
         sex: "female",
         imgURL: "",
@@ -82,21 +88,55 @@ export default function AddPetForm({ onBack }: AddPetFormProps) {
               ))}
             </div>
 
-            <div className={styles.avatarPlaceholder}>
+            <div
+              className={styles.avatarPlaceholder}
+              onClick={() => fileInputRef.current?.click()}
+            >
               <div className={styles.pawCircle}>
-                <svg className={styles.pawIcon}>
-                  <use href="/sprite.svg#icon-footprint" />
-                </svg>
+                {previewUrl ? (
+                  <img
+                    src={previewUrl}
+                    alt="Preview"
+                    className={styles.previewImage}
+                  />
+                ) : (
+                  <svg className={styles.pawIcon}>
+                    <use href="/sprite.svg#icon-footprint" />
+                  </svg>
+                )}
               </div>
             </div>
 
+            <input
+              type="file"
+              hidden
+              ref={fileInputRef}
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.currentTarget.files?.[0];
+                if (file) {
+                  setFieldValue("imgURL", file);
+                  const url = URL.createObjectURL(file);
+                  setPreviewUrl(url);
+                }
+              }}
+            />
             <div className={styles.inputRow}>
               <Field
                 name="imgURL"
-                placeholder="Enter URL"
+                placeholder="Enter URL or upload photo"
                 className={styles.input}
+                value={
+                  values.imgURL instanceof File
+                    ? values.imgURL.name
+                    : values.imgURL
+                }
               />
-              <button type="button" className={styles.uploadBtn}>
+              <button
+                type="button"
+                className={styles.uploadBtn}
+                onClick={() => fileInputRef.current?.click()}
+              >
                 Upload photo
                 <svg className={styles.uploadIcon}>
                   <use href="/sprite.svg#icon-cloud" />

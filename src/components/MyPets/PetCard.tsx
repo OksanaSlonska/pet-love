@@ -8,10 +8,10 @@ interface PetProps {
   pet: {
     _id: string;
     name: string;
+    imgURL: string;
     birthday: string;
     sex: string;
     species: string;
-    imgURL: string;
   };
 }
 
