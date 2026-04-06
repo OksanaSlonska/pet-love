@@ -1,11 +1,27 @@
 import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addPet } from "../../redux/auth/operations";
 import type { AppDispatch } from "../../redux/store";
-import { LuChevronDown, LuCalendar } from "react-icons/lu";
+import { LuChevronDown } from "react-icons/lu";
 import { useState, useEffect, useRef } from "react";
 import styles from "./AddPetForm.module.css";
+
+const PetSchema = Yup.object().shape({
+  title: Yup.string().required("Title is required"),
+  name: Yup.string().required("Name is required"),
+  species: Yup.string().required("Species is required"),
+  birthday: Yup.string()
+    .required("Birthday is required")
+    .matches(/^\d{4}-\d{2}-\d{2}$/, "Format must be YYYY-MM-DD")
+    .test("is-not-future", "Date cannot be in the future", (value) => {
+      if (!value) return false;
+      const today = new Date();
+      const inputDate = new Date(value);
+      return inputDate <= today;
+    }),
+});
 
 interface AddPetFormProps {
   onBack: () => void;
@@ -57,9 +73,10 @@ export default function AddPetForm({ onBack }: AddPetFormProps) {
         birthday: "",
         species: "",
       }}
+      validationSchema={PetSchema}
       onSubmit={handleSubmit}
     >
-      {({ values, setFieldValue }) => (
+      {({ values, setFieldValue, errors, touched }) => (
         <div className={styles.formContainer}>
           <Form className={styles.form}>
             <h2 className={styles.title}>
@@ -155,10 +172,10 @@ export default function AddPetForm({ onBack }: AddPetFormProps) {
               <div className={styles.dateWrapper}>
                 <Field
                   name="birthday"
-                  placeholder="0000-00-00"
-                  className={styles.input}
+                  type="date"
+                  max={new Date().toISOString().split("T")[0]}
+                  className={`${styles.input} ${errors.birthday && touched.birthday ? styles.inputError : ""}`}
                 />
-                <LuCalendar className={styles.calendarIcon} size={18} />
               </div>
 
               <div className={styles.selectWrapper}>

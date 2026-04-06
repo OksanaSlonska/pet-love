@@ -9,13 +9,16 @@ import {
   addPet,
   deletePet,
   updateUserInfo,
+  fetchNoticeById,
+  fetchNotices,
 } from "./operations";
 
-import type { User, AuthResponse } from "../../types/pet";
+import type { User, AuthResponse, INotice } from "../../types/pet";
 
 interface AuthState {
   user: User;
   token: string | null;
+  notices: INotice[];
   isLoggedIn: boolean;
   isRefreshing: boolean;
   isLoading: boolean;
@@ -23,8 +26,9 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  user: { name: null, email: null, favorites: [], pets: [] },
+  user: { name: null, email: null, favorites: [], pets: [], noticesViewed: [] },
   token: null,
+  notices: [],
   isLoggedIn: false,
   isRefreshing: false,
   isLoading: false,
@@ -84,7 +88,13 @@ const authSlice = createSlice({
         },
       )
       .addCase(logOut.fulfilled, (state) => {
-        state.user = { name: null, email: null, favorites: [], pets: [] };
+        state.user = {
+          name: null,
+          email: null,
+          favorites: [],
+          pets: [],
+          noticesViewed: [],
+        };
         state.token = null;
         state.isLoggedIn = false;
       })
@@ -111,14 +121,27 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
+
       .addCase(refreshUser.rejected, (state) => {
         state.isRefreshing = false;
         state.isLoggedIn = false;
         state.token = null;
       })
+
       .addCase(addFavorite.fulfilled, (state, action) => {
-        state.user.favorites = action.payload;
+        if (Array.isArray(action.payload)) {
+          state.user.favorites = action.payload;
+        } else if (action.payload._id || typeof action.payload === "string") {
+          const newFavId = action.payload._id || action.payload;
+
+          const fullPet = state.notices.find((n) => n._id === newFavId);
+
+          if (fullPet) {
+            state.user.favorites.push(fullPet._id);
+          }
+        }
       })
+
       .addCase(removeFavorite.fulfilled, (state, action) => {
         state.user.favorites = action.payload;
       })
@@ -153,6 +176,17 @@ const authSlice = createSlice({
           avatarURL: newPhoto || state.user.avatarURL,
         };
 
+        state.isLoading = false;
+      })
+      .addCase(fetchNoticeById.fulfilled, (state, action) => {
+        const viewedId = action.payload._id;
+
+        if (viewedId && !state.user.noticesViewed.includes(viewedId)) {
+          state.user.noticesViewed.push(viewedId);
+        }
+      })
+      .addCase(fetchNotices.fulfilled, (state, action) => {
+        state.notices = action.payload.results || action.payload;
         state.isLoading = false;
       });
   },

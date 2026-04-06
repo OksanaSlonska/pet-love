@@ -1,17 +1,37 @@
 import { useState } from "react";
 import styles from "./FavoritesTabs.module.css";
-import { selectFavorites } from "../../redux/auth/selectors";
+import {
+  selectViewedIds,
+  selectFavorites,
+  selectNotices,
+} from "../../redux/auth/selectors";
 import NoticeCard from "../../components/NoticeCard/NoticeCard";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { INotice } from "../../types/pet";
 import Modal from "../Modal/Modal";
 import NoticeDetail from "../NoticeDetail/NoticeDetail";
+import { useEffect } from "react";
+import { fetchNotices } from "../../redux/auth/operations";
+import type { AppDispatch } from "../../redux/store";
 
 export default function Favorites() {
   const [activeTab, setActiveTab] = useState("favorites");
-  const favoritePets = useSelector(selectFavorites);
   const [selectedPet, setSelectedPet] = useState<INotice | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchNotices({ page: 1, limit: 100 }));
+  }, [dispatch]);
+
+  const favoritePets = useSelector(selectFavorites);
+  const viewedIds = useSelector(selectViewedIds) || [];
+  const allNotices = useSelector(selectNotices) || [];
+  const viewedPets = allNotices.filter((pet: INotice) =>
+    viewedIds.includes(pet._id),
+  );
+  const currentPets = activeTab === "favorites" ? favoritePets : viewedPets;
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -39,15 +59,14 @@ export default function Favorites() {
           Viewed
         </button>
       </div>
-
       <div className={styles.container}>
-        {favoritePets?.length > 0 ? (
+        {currentPets.length > 0 ? (
           <div className={styles.grid}>
-            {favoritePets.map((pet: INotice) => (
+            {currentPets.map((pet: INotice) => (
               <NoticeCard
                 key={pet._id}
                 pet={pet}
-                isFavoritePage={true}
+                isFavoritePage={activeTab === "favorites"}
                 onLearnMore={handleLearnMore}
               />
             ))}
@@ -55,12 +74,9 @@ export default function Favorites() {
         ) : (
           <div className={styles.emptyWrapper}>
             <p className={styles.emptyText}>
-              Oops,
-              <span className={styles.highlight}>
-                looks like there aren't any furries
-              </span>
-              on our adorable page yet. Do not worry! View your pets on the
-              "find your favorite pet" page and add them to your favorites.
+              {activeTab === "favorites"
+                ? "Oops, looks like there aren't any furries on your favorite list yet."
+                : "Oops, looks like you haven't viewed any furries yet."}
             </p>
           </div>
         )}

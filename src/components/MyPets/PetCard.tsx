@@ -40,7 +40,11 @@ export const PetCard = ({ pet }: PetProps) => {
           </div>
           <div className={styles.detailItem}>
             <span>Birthday</span>
-            <p>{pet.birthday}</p>
+            <p>
+              {pet.birthday
+                ? pet.birthday.split("-").reverse().join(".")
+                : "Unknown"}
+            </p>
           </div>
           <div className={styles.detailItem}>
             <span>Sex</span>

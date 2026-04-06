@@ -9,6 +9,7 @@ import type {
   PetFormValues,
   PetResponse,
 } from "../../types/pet";
+
 import type { RootState } from "../store";
 
 interface PetApiPayload extends Omit<PetFormValues, "imgURL"> {
@@ -240,3 +241,33 @@ export const updateUserInfo = createAsyncThunk<
     return thunkAPI.rejectWithValue("An unexpected error occurred");
   }
 });
+
+export const fetchNoticeById = createAsyncThunk(
+  "auth/fetchNoticeById",
+  async (id: string, thunkAPI) => {
+    try {
+      const response = await axios.get(`/notices/${id}`);
+      return response.data;
+    } catch (error: unknown) {
+      const err = error as Error;
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  },
+);
+
+export const fetchNotices = createAsyncThunk(
+  "auth/fetchNotices",
+  async (
+    { page = 1, limit = 100 }: { page?: number; limit?: number },
+    thunkAPI,
+  ) => {
+    try {
+      const response = await axios.get(`/notices?page=${page}&limit=${limit}`);
+
+      return response.data;
+    } catch (error: unknown) {
+      const err = error as Error;
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  },
+);

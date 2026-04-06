@@ -7,3 +7,6 @@ export const selectAuthError = (state: RootState) => state.auth.error;
 export const selectAuthLoading = (state: RootState) => state.auth.isLoading;
 export const selectFavorites = (state: RootState) => state.auth.user?.favorites;
 export const selectUserPets = (state: RootState) => state.auth.user.pets;
+export const selectNotices = (state: RootState) => state.auth.notices || [];
+export const selectViewedIds = (state: RootState) =>
+  state.auth.user.noticesViewed || [];

@@ -5,7 +5,11 @@ import type { INotice } from "../../types/pet";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../redux/store";
 import { selectFavorites } from "../../redux/auth/selectors";
-import { addFavorite, removeFavorite } from "../../redux/auth/operations";
+import {
+  addFavorite,
+  removeFavorite,
+  fetchNoticeById,
+} from "../../redux/auth/operations";
 import CongratsModal from "../CongratsModal/CongratsModal";
 import { useState } from "react";
 import { selectIsLoggedIn } from "../../redux/auth/selectors";
@@ -79,6 +83,16 @@ export default function NoticeCard({
     }
   };
 
+  const handleLearnMoreClick = () => {
+    if (!isLoggedIn) {
+      setIsAttentionModalOpen(true);
+      return;
+    }
+    dispatch(fetchNoticeById(pet._id));
+
+    onLearnMore?.(pet);
+  };
+
   return (
     <>
       <div className={styles.card}>
@@ -131,7 +145,7 @@ export default function NoticeCard({
             <button
               type="button"
               className={styles.learnMoreBtn}
-              onClick={() => onLearnMore?.(pet)}
+              onClick={handleLearnMoreClick}
             >
               Learn more
             </button>

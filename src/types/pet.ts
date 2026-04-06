@@ -10,6 +10,11 @@ export interface INotice {
   popularity: number;
   comment: string;
   price?: number;
+  user?: {
+    _id: string;
+    email: string;
+    phone: string;
+  };
 }
 
 export interface Pet {
@@ -31,6 +36,7 @@ export interface User {
   phone?: string;
 
   avatar?: string;
+  noticesViewed: string[];
 }
 
 export interface AuthResponse {

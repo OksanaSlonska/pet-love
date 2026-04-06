@@ -13,6 +13,7 @@ import { PrivateRoute } from "../PrivateRoute";
 import ProfilePage from "../../pages/ProfilePage/Profile.Page";
 import { RestrictedRoute } from "../RestrictedRoute";
 import AddPetPage from "../../pages/AddPetPage/AddPetPage";
+import { Toaster } from "react-hot-toast";
 
 const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
 const NewsPage = lazy(() => import("../../pages/NewsPage/NewsPage"));
@@ -29,28 +30,34 @@ export default function App() {
   }, [dispatch]);
 
   return (
-    <Routes>
-      <Route path="/" element={<MainLayout />}>
-        <Route index element={<HomePage />} />
-        <Route path="news" element={<NewsPage />} />
-        <Route path="find-pet" element={<NoticesPage />} />
-        <Route path="friends" element={<OurFriendsPage />} />
+    <>
+      <Toaster position="top-right" reverseOrder={false} />
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="news" element={<NewsPage />} />
+          <Route path="find-pet" element={<NoticesPage />} />
+          <Route path="friends" element={<OurFriendsPage />} />
 
-        <Route
-          path="/login"
-          element={
-            <RestrictedRoute redirectTo="/profile" component={<LoginPage />} />
-          }
-        />
-        <Route path="register" element={<RegistrationPage />} />
-        <Route
-          path="/profile"
-          element={
-            <PrivateRoute redirectTo="/login" component={<ProfilePage />} />
-          }
-        />
-        <Route path="add-pet" element={<AddPetPage />} />
-      </Route>
-    </Routes>
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute
+                redirectTo="/profile"
+                component={<LoginPage />}
+              />
+            }
+          />
+          <Route path="register" element={<RegistrationPage />} />
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute redirectTo="/login" component={<ProfilePage />} />
+            }
+          />
+          <Route path="add-pet" element={<AddPetPage />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
